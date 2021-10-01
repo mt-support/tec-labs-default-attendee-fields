@@ -196,4 +196,47 @@ class Plugin extends \tad_DI52_ServiceProvider {
 
 		return $settings->get_option( $option, $default );
 	}
+
+	/**
+	 * Apply a fieldset to a newly created RSVP or ticket
+	 *
+	 * @param $post_id
+	 * @param $ticket
+	 * @param $data
+	 */
+	function apply_default_fieldset( $post_id, $ticket, $data ) {
+
+		// Run only when the ticket is getting created. Not on update.
+		if ( ! empty( $data['ticket_id'] ) ) {
+			return;
+		}
+
+		$options = $this->get_all_options();
+
+		// if ( $data->ticket_provider == Tribe__Tickets_RSVP ){}
+		// Tribe__Tickets_Plus__Commerce__WooCommerce__Main
+
+		// RSVP
+		if ( $data['ticket_provider'] != Tribe__Tickets__RSVP ) {
+			$default_form_post_id = $options['rsvp_default_fieldset'];
+
+			if (
+				empty( $default_form_post_id )
+				|| ! isset ( $default_form_post_id )
+			)
+			{
+				return;
+			}
+		}
+
+		// Get postmeta _tribe_tickets_meta_template from $default_form_post_id
+		$fieldset = get_post_meta( $default_form_post_id, '_tribe_tickets_meta_template', true );
+
+		// update postmeta for the RSVP / Ticket
+		if ( ! empty( $fieldset ) ) {
+			update_post_meta( $ticket->ID, '_tribe_tickets_meta', $fieldset );
+			update_post_meta( $ticket->ID, '_tribe_tickets_meta_enabled', 'yes' );
+		}
+		
+	}
 }
