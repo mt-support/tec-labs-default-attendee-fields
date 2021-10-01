@@ -9,7 +9,7 @@
  * Author URI:        https://evnt.is/1971
  * License:           GPL version 3 or any later version
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
- * Text Domain:       __TRIBE_DOMAIN__
+ * Text Domain:       tec-labs-default-ticket-fieldset
  *
  *     This plugin is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ function tribe_extension_default_ticket_fieldset() {
 	if ( ! class_exists( '\Tribe\Extensions\Default_Ticket_Fieldset\Plugin' ) ) {
 		tribe_transient_notice(
 			'default-ticket-fieldset',
-			'<p>' . esc_html__( 'Couldn\'t properly load "Event Tickets Extension: Default Ticket Fieldset" the extension was deactivated.', '__TRIBE_DOMAIN__' ) . '</p>',
+			'<p>' . esc_html__( 'Couldn\'t properly load "Event Tickets Extension: Default Ticket Fieldset" the extension was deactivated.', 'tec-labs-default-ticket-fieldset' ) . '</p>',
 			[],
 			// 1 second after that make sure the transient is removed.
 			1

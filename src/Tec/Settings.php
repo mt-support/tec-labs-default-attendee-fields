@@ -88,7 +88,7 @@ class Settings {
 	 */
 	private function set_options_prefix( $options_prefix = '' ) {
 		if ( empty( $opts_prefix ) ) {
-			$opts_prefix = str_replace( '-', '_', '__TRIBE_DOMAIN__' ); // The text domain.
+			$opts_prefix = str_replace( '-', '_', 'tec-labs-default-ticket-fieldset' ); // The text domain.
 		}
 
 		$opts_prefix = $opts_prefix . '_';
@@ -234,10 +234,10 @@ class Settings {
 				'type' => 'html',
 				'html' => $this->get_example_intro_text(),
 			],
-			'First' => [
+			'rsvp_default_fieldset' => [
 				'type'            => 'dropdown',
-				'label'           => esc_html__( 'RSVP', '__TRIBE_DOMAIN__' ),
-				'tooltip'         => sprintf( esc_html__( 'The Ticket Fieldset to be used when an RSVP is created.', '__TRIBE_DOMAIN__' ) ),
+				'label'           => esc_html__( 'RSVP', 'tec-labs-default-ticket-fieldset' ),
+				'tooltip'         => sprintf( esc_html__( 'The Ticket Fieldset to be used when an RSVP is created.', 'tec-labs-default-ticket-fieldset' ) ),
 				'validation_type' => 'options',
 				'options'         => $this->get_ticket_fieldsets(),
 			],
@@ -279,10 +279,10 @@ class Settings {
 	 * @return string
 	 */
 	private function get_example_intro_text() {
-		$result = '<h3>' . esc_html_x( 'Default Ticket Fieldsets', 'Settings header', '__TRIBE_DOMAIN__' ) . '</h3>';
+		$result = '<h3>' . esc_html_x( 'Default Ticket Fieldsets', 'Settings header', 'tec-labs-default-ticket-fieldset' ) . '</h3>';
 		$result .= '<div style="margin-left: 20px;">';
 		$result .= '<p>';
-		$result .= esc_html_x( 'You can set up here the default fieldsets to be saved with every newly created RSVP or ticket.', 'Setting section description', '__TRIBE_DOMAIN__' );
+		$result .= esc_html_x( 'You can set up here the default fieldsets to be saved with every newly created RSVP or ticket.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
 		$result .= '</p>';
 		$result .= '</div>';
 
