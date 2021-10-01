@@ -104,7 +104,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 
 		// Start binds.
 
-
+		add_action( 'tribe_tickets_ticket_add', [ $this, 'apply_default_fieldset' ], 10, 3 );
 
 		// End binds.
 
@@ -217,16 +217,26 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		// Tribe__Tickets_Plus__Commerce__WooCommerce__Main
 
 		// RSVP
-		if ( $data['ticket_provider'] != Tribe__Tickets__RSVP ) {
+		if ( $data['ticket_provider'] == Tribe__Tickets__RSVP ) {
 			$default_form_post_id = $options['rsvp_default_fieldset'];
+		}
+		elseif ( $data['ticket_provider'] == Tribe__Tickets_Plus__Commerce__WooCommerce__Main ) {
+			$default_form_post_id = $options['wooticket_default_fieldset'];
+		}
+		elseif ( $data['ticket_provider'] == Tribe__Tickets_Plus__Commerce__EDD__Main ) {
+			$default_form_post_id = $options['eddticket_default_fieldset'];
+		}
+		else {
+			return;
+		}
 
-			if (
-				empty( $default_form_post_id )
-				|| ! isset ( $default_form_post_id )
-			)
-			{
-				return;
-			}
+		if (
+			empty( $default_form_post_id )
+			|| ! isset ( $default_form_post_id )
+			|| 0 == $default_form_post_id
+		)
+		{
+			return;
 		}
 
 		// Get postmeta _tribe_tickets_meta_template from $default_form_post_id
@@ -237,6 +247,6 @@ class Plugin extends \tad_DI52_ServiceProvider {
 			update_post_meta( $ticket->ID, '_tribe_tickets_meta', $fieldset );
 			update_post_meta( $ticket->ID, '_tribe_tickets_meta_enabled', 'yes' );
 		}
-		
+
 	}
 }
