@@ -234,27 +234,19 @@ class Settings {
 				'type' => 'html',
 				'html' => $this->get_example_intro_text(),
 			],
-			// TODO: Settings heading end.
-			'a_setting' => [ // TODO: Change setting.
-				'type'            => 'text',
-				'label'           => esc_html__( 'Example setting', '__TRIBE_DOMAIN__' ),
-				'tooltip'         => sprintf( esc_html__( 'Example setting description. Enter your custom URL, including "http://" or "https://", for example %s.', '__TRIBE_DOMAIN__' ), '<code>https://demo.theeventscalendar.com/</code>' ),
-				'validation_type' => 'html',
-			],
 			'First' => [
 				'type'            => 'dropdown',
-				'label'           => esc_html__( 'Ticket fieldset', '__TRIBE_DOMAIN__' ),
-				'tooltip'         => sprintf( esc_html__( 'Ticket fieldset description. Enter your custom URL, including "http://" or "https://", for example %s.', '__TRIBE_DOMAIN__' ), '<code>https://demo.theeventscalendar.com/</code>' ),
+				'label'           => esc_html__( 'RSVP', '__TRIBE_DOMAIN__' ),
+				'tooltip'         => sprintf( esc_html__( 'The Ticket Fieldset to be used when an RSVP is created.', '__TRIBE_DOMAIN__' ) ),
 				'validation_type' => 'options',
 				'options'         => $this->get_ticket_fieldsets(),
-				//'options'         => [ 'a' => 'x', 'b' => 'z' ],
 			],
 		];
 
 		$this->settings_helper->add_fields(
 			$this->prefix_settings_field_keys( $fields ),
-			'general',
-			'tribeEventsMiscellaneousTitle',
+			'event-tickets',
+			'ticket-attendee-heading',
 			true
 		);
 	}
@@ -287,10 +279,10 @@ class Settings {
 	 * @return string
 	 */
 	private function get_example_intro_text() {
-		$result = '<h3>' . esc_html_x( 'Example Extension Setup', 'Settings header', '__TRIBE_DOMAIN__' ) . '</h3>';
+		$result = '<h3>' . esc_html_x( 'Default Ticket Fieldsets', 'Settings header', '__TRIBE_DOMAIN__' ) . '</h3>';
 		$result .= '<div style="margin-left: 20px;">';
 		$result .= '<p>';
-		$result .= esc_html_x( 'Some text here about this settings section.', 'Setting section description', '__TRIBE_DOMAIN__' );
+		$result .= esc_html_x( 'You can set up here the default fieldsets to be saved with every newly created RSVP or ticket.', 'Setting section description', '__TRIBE_DOMAIN__' );
 		$result .= '</p>';
 		$result .= '</div>';
 
