@@ -241,6 +241,14 @@ class Settings {
 				'tooltip'         => sprintf( esc_html__( 'Example setting description. Enter your custom URL, including "http://" or "https://", for example %s.', '__TRIBE_DOMAIN__' ), '<code>https://demo.theeventscalendar.com/</code>' ),
 				'validation_type' => 'html',
 			],
+			'First' => [
+				'type'            => 'dropdown',
+				'label'           => esc_html__( 'Ticket fieldset', '__TRIBE_DOMAIN__' ),
+				'tooltip'         => sprintf( esc_html__( 'Ticket fieldset description. Enter your custom URL, including "http://" or "https://", for example %s.', '__TRIBE_DOMAIN__' ), '<code>https://demo.theeventscalendar.com/</code>' ),
+				'validation_type' => 'options',
+				'options'         => $this->get_ticket_fieldsets(),
+				//'options'         => [ 'a' => 'x', 'b' => 'z' ],
+			],
 		];
 
 		$this->settings_helper->add_fields(
@@ -287,6 +295,25 @@ class Settings {
 		$result .= '</div>';
 
 		return $result;
+	}
+
+	/**
+	 * Get the list of the fieldsets.
+	 *
+	 * @return array
+	 */
+	private function get_ticket_fieldsets() {
+
+		$fieldset_class = new \Tribe__Tickets_Plus__Meta__Fieldset;
+		$fieldsets = $fieldset_class->get_fieldsets();
+
+		$dropdown = [ '' => 'No default fieldset' ];
+
+		foreach ( $fieldsets as $fieldset ) {
+			$dropdown[ $fieldset->ID ] = $fieldset->post_title;
+		}
+
+	    return $dropdown;
 	}
 
 }
