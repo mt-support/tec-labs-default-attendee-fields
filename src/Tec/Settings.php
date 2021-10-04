@@ -241,21 +241,28 @@ class Settings {
 				'validation_type' => 'options',
 				'options'         => $this->get_ticket_fieldsets(),
 			],
-			'wooticket_default_fieldset' => [
+		];
+
+		if ( class_exists( 'WooCommerce' ) ) {
+			$fields['wooticket_default_fieldset'] = [
 				'type'            => 'dropdown',
 				'label'           => esc_html__( 'WooCommerce ticket', 'tec-labs-default-ticket-fieldset' ),
 				'tooltip'         => sprintf( esc_html__( 'The Ticket Fieldset to be used when a ticket with WooCommerce is created.', 'tec-labs-default-ticket-fieldset' ) ),
 				'validation_type' => 'options',
 				'options'         => $this->get_ticket_fieldsets(),
-			],
-			'eddticket_default_fieldset' => [
+			];
+		}
+		
+		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
+			$fields['eddticket_default_fieldset'] = [
 				'type'            => 'dropdown',
 				'label'           => esc_html__( 'EDD ticket', 'tec-labs-default-ticket-fieldset' ),
 				'tooltip'         => sprintf( esc_html__( 'The Ticket Fieldset to be used when a ticket with Easy Digital Downloads is created.', 'tec-labs-default-ticket-fieldset' ) ),
 				'validation_type' => 'options',
 				'options'         => $this->get_ticket_fieldsets(),
-			],
-		];
+
+			];
+		}
 
 		$this->settings_helper->add_fields(
 			$this->prefix_settings_field_keys( $fields ),
