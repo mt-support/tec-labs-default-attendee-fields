@@ -220,10 +220,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		) {
 			return;
 		}
-		// if ( $data->ticket_provider == Tribe__Tickets_RSVP ){}
-		// Tribe__Tickets_Plus__Commerce__WooCommerce__Main
 
-		// RSVP
 		if ( $data['ticket_provider'] == Tribe__Tickets__RSVP ) {
 			$default_form_post_id = $options['rsvp_default_fieldset'];
 		}
@@ -241,8 +238,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 			empty( $default_form_post_id )
 			|| ! isset ( $default_form_post_id )
 			|| 0 == $default_form_post_id
-		)
-		{
+		) {
 			return;
 		}
 
