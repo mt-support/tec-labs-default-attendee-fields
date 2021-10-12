@@ -213,6 +213,13 @@ class Plugin extends \tad_DI52_ServiceProvider {
 
 		$options = $this->get_all_options();
 
+		// If override is not checked and there is a fieldset, then don't override.
+		if (
+			! $options['override_fieldset']
+			&& count( $data['tribe-tickets-input'] ) > 1
+		) {
+			return;
+		}
 		// if ( $data->ticket_provider == Tribe__Tickets_RSVP ){}
 		// Tribe__Tickets_Plus__Commerce__WooCommerce__Main
 
