@@ -72,3 +72,4 @@ function tribe_extension_default_ticket_fieldset() {
 
 // Loads after common is already properly loaded.
 add_action( 'tribe_common_loaded', 'tribe_extension_default_ticket_fieldset' );
+add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), '\Tribe\Extensions\Default_Ticket_Fieldset\Plugin::plugin_settings_link' );

@@ -252,4 +252,12 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		}
 
 	}
+
+	public function plugin_settings_link( $links ) {
+		$url           = get_admin_url() . 'edit.php?post_type=tribe_events&page=tribe-common&tab=event-tickets';
+		$settings_link = '<a href="' . $url . '">' . __( 'Settings', 'tec-labs-default-ticket-fieldset' ) . '</a>';
+		array_push( $links, $settings_link );
+
+		return $links;
+	}
 }
