@@ -228,6 +228,8 @@ class Settings {
 	 * TODO: Move the setting to where you want and update this docblock. If you like it here, just delete this TODO.
 	 */
 	public function add_settings() {
+		$ticket_fieldsets = $this->get_ticket_fieldsets();
+
 		$fields = [
 			// TODO: Settings heading start. Remove this element if not needed. Also remove the corresponding `get_example_intro_text()` method below.
 			'Example'   => [
@@ -239,7 +241,7 @@ class Settings {
 				'label'           => esc_html__( 'RSVP', 'tec-labs-default-ticket-fieldset' ),
 				'tooltip'         => sprintf( esc_html__( 'The Ticket Fieldset to be used when an RSVP is created.', 'tec-labs-default-ticket-fieldset' ) ),
 				'validation_type' => 'options',
-				'options'         => $this->get_ticket_fieldsets(),
+				'options'         => $ticket_fieldsets,
 			],
 		];
 
@@ -249,7 +251,7 @@ class Settings {
 				'label'           => esc_html__( 'WooCommerce ticket', 'tec-labs-default-ticket-fieldset' ),
 				'tooltip'         => sprintf( esc_html__( 'The Ticket Fieldset to be used when a ticket with WooCommerce is created.', 'tec-labs-default-ticket-fieldset' ) ),
 				'validation_type' => 'options',
-				'options'         => $this->get_ticket_fieldsets(),
+				'options'         => $ticket_fieldsets,
 			];
 		}
 		
@@ -259,7 +261,7 @@ class Settings {
 				'label'           => esc_html__( 'EDD ticket', 'tec-labs-default-ticket-fieldset' ),
 				'tooltip'         => sprintf( esc_html__( 'The Ticket Fieldset to be used when a ticket with Easy Digital Downloads is created.', 'tec-labs-default-ticket-fieldset' ) ),
 				'validation_type' => 'options',
-				'options'         => $this->get_ticket_fieldsets(),
+				'options'         => $ticket_fieldsets,
 
 			];
 		}
