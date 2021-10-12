@@ -266,6 +266,14 @@ class Settings {
 			];
 		}
 
+		$fields['override_fieldset'] = [
+			'type'            => 'checkbox_bool',
+			'label'           => __( 'Override fieldset', 'tec-labs-default-ticket-fieldset' ),
+			'tooltip'         => __( 'Enable if you want to force the selected fieldsets on ticket creation.', 'tec-labs-default-ticket-fieldset' ),
+			'validation_type' => 'boolean',
+			'default'         => false,
+		];
+
 		$this->settings_helper->add_fields(
 			$this->prefix_settings_field_keys( $fields ),
 			'event-tickets',
@@ -306,6 +314,7 @@ class Settings {
 		$result .= '<div style="margin-left: 20px;">';
 		$result .= '<p>';
 		$result .= esc_html_x( 'You can set up here the default fieldsets to be saved with every newly created RSVP or ticket.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
+		$result .= esc_html_x( 'If a different fieldset is being created, then the defaults will not be applied, unless the override setting is enabled.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
 		$result .= '</p>';
 		$result .= '</div>';
 
