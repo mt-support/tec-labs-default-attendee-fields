@@ -308,7 +308,7 @@ class Settings {
 		$result .= sprintf(
 			// Translators: %1$s opening <a> tag with URL, %2$s closing </a> tag
 			esc_html_x(
-				'You can create ticket fieldsets for attendee information collection %1$shere%2$s. ',
+				'You can create ticket fieldsets for attendee information collection %1$shere%2$s.',
 				'Setting section description',
 				'tec-labs-default-ticket-fieldset'
 			),
