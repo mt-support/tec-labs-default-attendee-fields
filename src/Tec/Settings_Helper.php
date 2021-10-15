@@ -13,8 +13,6 @@ use Tribe__Main;
 
 /**
  * Helper for inserting/removing fields on the WP Admin TEC Settings pages
- *
- * @TODO Delete file if not using settings
  */
 class Settings_Helper {
 

@@ -12,8 +12,6 @@ use Tribe__Settings_Manager;
 
 /**
  * Do the Settings.
- *
- * TODO: Delete file if not using settings
  */
 class Settings {
 
@@ -36,17 +34,12 @@ class Settings {
 	/**
 	 * Settings constructor.
 	 *
-	 * TODO: Update this entire class for your needs, or remove the entire `src` directory this file is in and do not load it in the main plugin file.
-	 *
 	 * @param string $options_prefix Recommended: the plugin text domain, with hyphens converted to underscores.
 	 */
 	public function __construct( $options_prefix ) {
 		$this->settings_helper = new Settings_Helper();
 
 		$this->set_options_prefix( $options_prefix );
-
-		// Remove settings specific to Google Maps
-		add_action( 'admin_init', [ $this, 'remove_settings' ] );
 
 		// Add settings specific to OSM
 		add_action( 'admin_init', [ $this, 'add_settings' ] );
@@ -205,33 +198,13 @@ class Settings {
 	}
 
 	/**
-	 * Here is an example of removing settings from Events > Settings > General tab > "Map Settings" section
-	 * that are specific to Google Maps.
-	 *
-	 * TODO: Remove this method and the corresponding hook in `__construct()` if you don't want to remove any settings.
-	 */
-	public function remove_settings() {
-		// Remove "Enable Google Maps" checkbox
-		$this->settings_helper->remove_field( 'embedGoogleMaps', 'general' );
-
-		// Remove "Map view search distance limit" (default of 25)
-		$this->settings_helper->remove_field( 'geoloc_default_geofence', 'general' );
-
-		// Remove "Google Maps default zoom level" (0-21, default of 10)
-		$this->settings_helper->remove_field( 'embedGoogleMapsZoom', 'general' );
-	}
-
-	/**
 	 * Adds a new section of fields to Events > Settings > General tab, appearing after the "Map Settings" section
 	 * and before the "Miscellaneous Settings" section.
-	 *
-	 * TODO: Move the setting to where you want and update this docblock. If you like it here, just delete this TODO.
 	 */
 	public function add_settings() {
 		$ticket_fieldsets = $this->get_ticket_fieldsets();
 
 		$fields = [
-			// TODO: Settings heading start. Remove this element if not needed. Also remove the corresponding `get_example_intro_text()` method below.
 			'Example'   => [
 				'type' => 'html',
 				'html' => $this->get_example_intro_text(),
@@ -304,8 +277,6 @@ class Settings {
 
 	/**
 	 * Here is an example of getting some HTML for the Settings Header.
-	 *
-	 * TODO: Delete this method if you do not need a heading for your settings. Also remove the corresponding element in the the $fields array in the `add_settings()` method above.
 	 *
 	 * @return string
 	 */
