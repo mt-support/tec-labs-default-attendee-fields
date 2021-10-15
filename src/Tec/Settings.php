@@ -223,7 +223,15 @@ class Settings {
 			$fields['wooticket_default_fieldset'] = [
 				'type'            => 'dropdown',
 				'label'           => esc_html__( 'WooCommerce ticket', 'tec-labs-default-ticket-fieldset' ),
-				'tooltip'         => sprintf( esc_html_x( 'The Ticket Fieldset to be added when a ticket with %s is created.', 'Setting description', 'tec-labs-default-ticket-fieldset' ), 'WooCommerce' ),
+				'tooltip'         => sprintf(
+										// Translators: %s Name of the eCommerce platform.
+										esc_html_x(
+											'The Ticket Fieldset to be added when a ticket with %s is created.',
+											'Setting description',
+											'tec-labs-default-ticket-fieldset'
+										),
+										'WooCommerce'
+				),
 				'validation_type' => 'options',
 				'options'         => $ticket_fieldsets,
 			];
@@ -233,7 +241,15 @@ class Settings {
 			$fields['eddticket_default_fieldset'] = [
 				'type'            => 'dropdown',
 				'label'           => esc_html__( 'EDD ticket', 'tec-labs-default-ticket-fieldset' ),
-				'tooltip'         => sprintf( esc_html_x( 'The Ticket Fieldset to be added when a ticket with %s is created.', 'Setting description', 'tec-labs-default-ticket-fieldset' ), 'Easy Digital Downloads' ),
+				'tooltip'         => sprintf(
+										// Translators: %s Name of the eCommerce platform.
+										esc_html_x(
+											'The Ticket Fieldset to be added when a ticket with %s is created.',
+											'Setting description',
+											'tec-labs-default-ticket-fieldset'
+										),
+										'Easy Digital Downloads'
+				),
 				'validation_type' => 'options',
 				'options'         => $ticket_fieldsets,
 
@@ -290,6 +306,7 @@ class Settings {
 		$result .= esc_html_x( 'If a fieldset is already being added to a ticket manually, then the defaults will not be applied, unless the override setting is enabled.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
 		$result .= '<br>';
 		$result .= sprintf(
+			// Translators: %1$s opening <a> tag with URL, %2$s closing </a> tag
 			esc_html_x(
 				'You can create ticket fieldsets for attendee information collection %1$shere%2$s. ',
 				'Setting section description',
