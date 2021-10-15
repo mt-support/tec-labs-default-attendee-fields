@@ -277,7 +277,7 @@ class Settings {
 		$this->settings_helper->add_fields(
 			$this->prefix_settings_field_keys( $fields ),
 			'event-tickets',
-			'ticket-attendee-heading',
+			'ticket-paypal-heading',
 			true
 		);
 	}
@@ -310,11 +310,11 @@ class Settings {
 	 * @return string
 	 */
 	private function get_example_intro_text() {
-		$result = '<h3>' . esc_html_x( 'Default Ticket Fieldsets for Collecting Attendee Information', 'Settings header', 'tec-labs-default-ticket-fieldset' ) . '</h3>';
+		$result = '<h3>' . esc_html_x( 'Default Ticket Fieldsets for Collecting Attendee Registration Information', 'Settings header', 'tec-labs-default-ticket-fieldset' ) . '</h3>';
 		$result .= '<div style="margin-left: 20px;">';
 		$result .= '<p>';
-		$result .= esc_html_x( 'You can set up default fieldsets that will be saved with every newly created RSVP or ticket.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
-		$result .= '<br>';
+		$result .= esc_html_x( 'You can set up default fieldsets that will be saved with every newly created RSVP or ticket, for tickets created both on the backend or through the Community Events submission form.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
+		$result .= ' ';
 		$result .= esc_html_x( 'If a fieldset is already being added to a ticket manually, then the defaults will not be applied, unless the override setting is enabled.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
 		$result .= '<br>';
 		$result .= sprintf(
