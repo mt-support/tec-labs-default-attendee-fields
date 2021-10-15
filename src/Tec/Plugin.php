@@ -2,9 +2,9 @@
 /**
  * Plugin Class.
  *
- * @since 1.0.0
- *
  * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @since   1.0.0
+ *
  */
 
 namespace Tribe\Extensions\Default_Ticket_Fieldset;
@@ -12,9 +12,9 @@ namespace Tribe\Extensions\Default_Ticket_Fieldset;
 /**
  * Class Plugin
  *
- * @since 1.0.0
- *
  * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @since   1.0.0
+ *
  */
 class Plugin extends \tad_DI52_ServiceProvider {
 	/**
@@ -140,9 +140,9 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	 *
 	 * Settings_Helper will append a trailing underscore before each option.
 	 *
-	 * @return string
-     *
 	 * @see \Tribe\Extensions\Default_Ticket_Fieldset\Settings::set_options_prefix()
+	 * @return string
+	 *
 	 */
 	private function get_options_prefix() {
 		return (string) str_replace( '-', '_', 'tec-labs-default-ticket-fieldset' );
@@ -175,7 +175,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	/**
 	 * Get a specific extension option.
 	 *
-	 * @param $option
+	 * @param        $option
 	 * @param string $default
 	 *
 	 * @return array
@@ -212,14 +212,11 @@ class Plugin extends \tad_DI52_ServiceProvider {
 
 		if ( $data['ticket_provider'] == Tribe__Tickets__RSVP ) {
 			$default_form_post_id = $options['rsvp_default_fieldset'];
-		}
-		elseif ( $data['ticket_provider'] == Tribe__Tickets_Plus__Commerce__WooCommerce__Main ) {
+		} elseif ( $data['ticket_provider'] == Tribe__Tickets_Plus__Commerce__WooCommerce__Main ) {
 			$default_form_post_id = $options['wooticket_default_fieldset'];
-		}
-		elseif ( $data['ticket_provider'] == Tribe__Tickets_Plus__Commerce__EDD__Main ) {
+		} elseif ( $data['ticket_provider'] == Tribe__Tickets_Plus__Commerce__EDD__Main ) {
 			$default_form_post_id = $options['eddticket_default_fieldset'];
-		}
-		else {
+		} else {
 			return;
 		}
 

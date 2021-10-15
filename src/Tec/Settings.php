@@ -2,10 +2,11 @@
 /**
  * Settings Object.
  *
- * @since 1.0.0
- *
  * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @since   1.0.0
+ *
  */
+
 namespace Tribe\Extensions\Default_Ticket_Fieldset;
 
 use Tribe__Settings_Manager;
@@ -205,14 +206,14 @@ class Settings {
 		$ticket_fieldsets = $this->get_ticket_fieldsets();
 
 		$fields = [
-			'default-fieldset-heading'   => [
+			'default-fieldset-heading' => [
 				'type' => 'html',
 				'html' => $this->get_defaiult_fieldset_intro_text(),
 			],
-			'rsvp_default_fieldset' => [
+			'rsvp_default_fieldset'    => [
 				'type'            => 'dropdown',
 				'label'           => esc_html__( 'RSVP', 'tec-labs-default-ticket-fieldset' ),
-				'tooltip'         => sprintf( esc_html_x( 'The Ticket Fieldset to be added when an RSVP is created.', 'Setting description','tec-labs-default-ticket-fieldset' ) ),
+				'tooltip'         => sprintf( esc_html_x( 'The Ticket Fieldset to be added when an RSVP is created.', 'Setting description', 'tec-labs-default-ticket-fieldset' ) ),
 				'validation_type' => 'options',
 				'options'         => $ticket_fieldsets,
 			],
@@ -222,17 +223,17 @@ class Settings {
 			$fields['wooticket_default_fieldset'] = [
 				'type'            => 'dropdown',
 				'label'           => esc_html__( 'WooCommerce ticket', 'tec-labs-default-ticket-fieldset' ),
-				'tooltip'         => sprintf( esc_html_x( 'The Ticket Fieldset to be added when a ticket with %s is created.', 'Setting description','tec-labs-default-ticket-fieldset' ), 'WooCommerce' ),
+				'tooltip'         => sprintf( esc_html_x( 'The Ticket Fieldset to be added when a ticket with %s is created.', 'Setting description', 'tec-labs-default-ticket-fieldset' ), 'WooCommerce' ),
 				'validation_type' => 'options',
 				'options'         => $ticket_fieldsets,
 			];
 		}
-		
+
 		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
 			$fields['eddticket_default_fieldset'] = [
 				'type'            => 'dropdown',
 				'label'           => esc_html__( 'EDD ticket', 'tec-labs-default-ticket-fieldset' ),
-				'tooltip'         => sprintf( esc_html_x( 'The Ticket Fieldset to be added when a ticket with %s is created.', 'Setting description','tec-labs-default-ticket-fieldset' ), 'Easy Digital Downloads' ),
+				'tooltip'         => sprintf( esc_html_x( 'The Ticket Fieldset to be added when a ticket with %s is created.', 'Setting description', 'tec-labs-default-ticket-fieldset' ), 'Easy Digital Downloads' ),
 				'validation_type' => 'options',
 				'options'         => $ticket_fieldsets,
 
@@ -309,9 +310,9 @@ class Settings {
 	 * @return array
 	 */
 	private function get_ticket_fieldsets() {
-
 		$fieldset_class = new \Tribe__Tickets_Plus__Meta__Fieldset;
-		$fieldsets = $fieldset_class->get_fieldsets();
+		$fieldset_class = new Tribe__Tickets_Plus__Meta__Fieldset;
+		$fieldsets      = $fieldset_class->get_fieldsets();
 
 		$dropdown = [ '' => 'No default fieldset' ];
 
@@ -319,7 +320,7 @@ class Settings {
 			$dropdown[ $fieldset->ID ] = $fieldset->post_title;
 		}
 
-	    return $dropdown;
+		return $dropdown;
 	}
 
 }
