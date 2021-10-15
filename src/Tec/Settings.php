@@ -311,7 +311,6 @@ class Settings {
 	 */
 	private function get_ticket_fieldsets() {
 		$fieldset_class = new \Tribe__Tickets_Plus__Meta__Fieldset;
-		$fieldset_class = new Tribe__Tickets_Plus__Meta__Fieldset;
 		$fieldsets      = $fieldset_class->get_fieldsets();
 
 		$dropdown = [ '' => 'No default fieldset' ];
