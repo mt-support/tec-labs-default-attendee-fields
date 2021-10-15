@@ -239,7 +239,7 @@ class Settings {
 			'rsvp_default_fieldset' => [
 				'type'            => 'dropdown',
 				'label'           => esc_html__( 'RSVP', 'tec-labs-default-ticket-fieldset' ),
-				'tooltip'         => sprintf( esc_html__( 'The Ticket Fieldset to be used when an RSVP is created.', 'tec-labs-default-ticket-fieldset' ) ),
+				'tooltip'         => sprintf( esc_html_x( 'The Ticket Fieldset to be added when an RSVP is created.', 'Setting description','tec-labs-default-ticket-fieldset' ) ),
 				'validation_type' => 'options',
 				'options'         => $ticket_fieldsets,
 			],
@@ -249,7 +249,7 @@ class Settings {
 			$fields['wooticket_default_fieldset'] = [
 				'type'            => 'dropdown',
 				'label'           => esc_html__( 'WooCommerce ticket', 'tec-labs-default-ticket-fieldset' ),
-				'tooltip'         => sprintf( esc_html__( 'The Ticket Fieldset to be used when a ticket with WooCommerce is created.', 'tec-labs-default-ticket-fieldset' ) ),
+				'tooltip'         => sprintf( esc_html_x( 'The Ticket Fieldset to be added when a ticket with %s is created.', 'Setting description','tec-labs-default-ticket-fieldset' ), 'WooCommerce' ),
 				'validation_type' => 'options',
 				'options'         => $ticket_fieldsets,
 			];
@@ -259,7 +259,7 @@ class Settings {
 			$fields['eddticket_default_fieldset'] = [
 				'type'            => 'dropdown',
 				'label'           => esc_html__( 'EDD ticket', 'tec-labs-default-ticket-fieldset' ),
-				'tooltip'         => sprintf( esc_html__( 'The Ticket Fieldset to be used when a ticket with Easy Digital Downloads is created.', 'tec-labs-default-ticket-fieldset' ) ),
+				'tooltip'         => sprintf( esc_html_x( 'The Ticket Fieldset to be added when a ticket with %s is created.', 'Setting description','tec-labs-default-ticket-fieldset' ), 'Easy Digital Downloads' ),
 				'validation_type' => 'options',
 				'options'         => $ticket_fieldsets,
 
@@ -268,8 +268,8 @@ class Settings {
 
 		$fields['override_fieldset'] = [
 			'type'            => 'checkbox_bool',
-			'label'           => __( 'Override fieldsets', 'tec-labs-default-ticket-fieldset' ),
-			'tooltip'         => __( 'Enable if you want to force the selected fieldsets on ticket creation.', 'tec-labs-default-ticket-fieldset' ),
+			'label'           => esc_html__( 'Override fieldsets', 'tec-labs-default-ticket-fieldset' ),
+			'tooltip'         => esc_html_x( 'Enable if you want to force the selected fieldsets on ticket creation.', 'Setting description', 'tec-labs-default-ticket-fieldset' ),
 			'validation_type' => 'boolean',
 			'default'         => false,
 		];
@@ -310,12 +310,22 @@ class Settings {
 	 * @return string
 	 */
 	private function get_example_intro_text() {
-		$result = '<h3>' . esc_html_x( 'Default Ticket Fieldsets', 'Settings header', 'tec-labs-default-ticket-fieldset' ) . '</h3>';
+		$result = '<h3>' . esc_html_x( 'Default Ticket Fieldsets for Collecting Attendee Information', 'Settings header', 'tec-labs-default-ticket-fieldset' ) . '</h3>';
 		$result .= '<div style="margin-left: 20px;">';
 		$result .= '<p>';
-		$result .= esc_html_x( 'You can set up here the default fieldsets to be saved with every newly created RSVP or ticket.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
+		$result .= esc_html_x( 'You can set up default fieldsets that will be saved with every newly created RSVP or ticket.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
 		$result .= '<br>';
-		$result .= esc_html_x( 'If a fieldset is being added to a ticket, then the defaults will not be applied, unless the override setting is enabled.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
+		$result .= esc_html_x( 'If a fieldset is already being added to a ticket manually, then the defaults will not be applied, unless the override setting is enabled.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
+		$result .= '<br>';
+		$result .= sprintf(
+			esc_html_x(
+				'You can create ticket fieldsets for attendee information collection %1$shere%2$s. ',
+				'Setting section description',
+				'tec-labs-default-ticket-fieldset'
+			),
+			'<a href="/wp-admin/edit.php?post_type=ticket-meta-fieldset">',
+			'</a>'
+		);
 		$result .= '</p>';
 		$result .= '</div>';
 
