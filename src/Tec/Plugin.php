@@ -187,7 +187,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	}
 
 	/**
-	 * Apply a fieldset to a newly created RSVP or ticket
+	 * Apply a fieldset to a newly created RSVP or ticket.
 	 *
 	 * @param $post_id
 	 * @param $ticket
@@ -222,16 +222,16 @@ class Plugin extends \tad_DI52_ServiceProvider {
 
 		if (
 			empty( $default_form_post_id )
-			|| ! isset ( $default_form_post_id )
+			|| !isset ( $default_form_post_id )
 			|| 0 == $default_form_post_id
 		) {
 			return;
 		}
 
-		// Get postmeta _tribe_tickets_meta_template from $default_form_post_id
+		// Get postmeta `_tribe_tickets_meta_template` from `$default_form_post_id`.
 		$fieldset = get_post_meta( $default_form_post_id, '_tribe_tickets_meta_template', true );
 
-		// update postmeta for the RSVP / Ticket
+		// Update postmeta for the RSVP / Ticket.
 		if ( ! empty( $fieldset ) ) {
 			update_post_meta( $ticket->ID, '_tribe_tickets_meta', $fieldset );
 			update_post_meta( $ticket->ID, '_tribe_tickets_meta_enabled', 'yes' );
