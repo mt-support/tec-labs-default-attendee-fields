@@ -213,7 +213,7 @@ class Settings {
 			'rsvp_default_fieldset'    => [
 				'type'            => 'dropdown',
 				'label'           => esc_html__( 'RSVP', 'tec-labs-default-ticket-fieldset' ),
-				'tooltip'         => sprintf( esc_html_x( 'The Ticket Fieldset to be added when an RSVP is created.', 'Setting description', 'tec-labs-default-ticket-fieldset' ) ),
+				'tooltip'         => esc_html_x( 'The Ticket Fieldset to be added when an RSVP is created.', 'Setting description', 'tec-labs-default-ticket-fieldset' ),
 				'validation_type' => 'options',
 				'options'         => $ticket_fieldsets,
 			],
