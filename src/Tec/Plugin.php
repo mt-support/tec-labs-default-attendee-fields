@@ -189,9 +189,11 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	/**
 	 * Apply a fieldset to a newly created RSVP or ticket.
 	 *
-	 * @param $post_id
-	 * @param $ticket
-	 * @param $data
+	 * @param $post_id  The ID of the post / event for which the RSVP / ticket is being created.
+	 * @param $ticket   The ticket object with all its data.
+	 * @param $data     The ticket data sent.
+	 *
+	 * @since 1.0.0
 	 */
 	function apply_default_fieldset( $post_id, $ticket, $data ) {
 
