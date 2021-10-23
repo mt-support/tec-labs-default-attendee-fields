@@ -312,7 +312,7 @@ class Settings {
 				'Setting section description',
 				'tec-labs-default-ticket-fieldset'
 			),
-			'<a href="/wp-admin/edit.php?post_type=ticket-meta-fieldset">',
+			'<a href="' . get_site_url() . ' . /wp-admin/edit.php?post_type=ticket-meta-fieldset">',
 			'</a>'
 		);
 		$result .= '</p>';
