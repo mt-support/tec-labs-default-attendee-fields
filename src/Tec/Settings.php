@@ -324,7 +324,9 @@ class Settings {
 	/**
 	 * Get the list of the fieldsets.
 	 *
+	 * @since 1.0.0
 	 * @return array
+	 *
 	 */
 	private function get_ticket_fieldsets() {
 		$fieldset_class = new \Tribe__Tickets_Plus__Meta__Fieldset;
