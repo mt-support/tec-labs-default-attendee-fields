@@ -241,6 +241,13 @@ class Plugin extends \tad_DI52_ServiceProvider {
 
 	}
 
+	/**
+	 * Add a `Settings` link to the plugin actions on the plugins page.
+	 *
+	 * @param $links array The array of links for a plugin on the Plugins page.
+	 *
+	 * @return array
+	 */
 	public function plugin_settings_link( $links ) {
 		$url           = get_admin_url() . 'edit.php?post_type=tribe_events&page=tribe-common&tab=event-tickets';
 		$settings_link = '<a href="' . $url . '">' . __( 'Settings', 'tec-labs-default-ticket-fieldset' ) . '</a>';
