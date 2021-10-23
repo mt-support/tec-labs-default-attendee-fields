@@ -210,11 +210,11 @@ class Plugin extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
-		if ( $data['ticket_provider'] == Tribe__Tickets__RSVP ) {
+		if ( Tribe__Tickets__RSVP == $data['ticket_provider'] ) {
 			$default_form_post_id = $options['rsvp_default_fieldset'];
-		} elseif ( $data['ticket_provider'] == Tribe__Tickets_Plus__Commerce__WooCommerce__Main ) {
+		} elseif ( Tribe__Tickets_Plus__Commerce__WooCommerce__Main == $data['ticket_provider'] ) {
 			$default_form_post_id = $options['wooticket_default_fieldset'];
-		} elseif ( $data['ticket_provider'] == Tribe__Tickets_Plus__Commerce__EDD__Main ) {
+		} elseif ( Tribe__Tickets_Plus__Commerce__EDD__Main == $data['ticket_provider'] ) {
 			$default_form_post_id = $options['eddticket_default_fieldset'];
 		} else {
 			return;
