@@ -191,10 +191,10 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param $ticket   The ticket object with all its data.
-	 * @param $data     The ticket data sent.
-	 *
-	 * @param $post_id  The ID of the post / event for which the RSVP / ticket is being created.
+	 * @param int $post_id  The ID of the post / event for which the RSVP / ticket is being created.
+	 * @param Tribe__Tickets__Ticket_Object $ticket  The ticket object with all its data.
+	 * @param array $data     The ticket data sent.
+
 	 */
 	function apply_default_fieldset( $post_id, $ticket, $data ) {
 
