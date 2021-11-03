@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Event Tickets Extension: Default Ticket Fieldset\n"
-"POT-Creation-Date: 2021-11-03 23:02+0100\n"
+"POT-Creation-Date: 2021-11-03 23:29+0100\n"
 "PO-Revision-Date: 2021-10-15 22:23+0200\n"
 "Language-Team: The Events Calendar <support@theeventscalendar.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"Last-Translator: \n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
@@ -31,6 +32,7 @@ msgid "Settings"
 msgstr ""
 
 #: src/Tec/Settings.php:215
+msgctxt "Setting label"
 msgid "RSVP"
 msgstr ""
 
@@ -40,6 +42,7 @@ msgid "The Ticket Fieldset to be added when an RSVP is created."
 msgstr ""
 
 #: src/Tec/Settings.php:225
+msgctxt "Setting label"
 msgid "WooCommerce ticket"
 msgstr ""
 
@@ -50,10 +53,12 @@ msgid "The Ticket Fieldset to be added when a ticket with %s is created."
 msgstr ""
 
 #: src/Tec/Settings.php:243
+msgctxt "Setting label"
 msgid "EDD ticket"
 msgstr ""
 
 #: src/Tec/Settings.php:261
+msgctxt "Setting label"
 msgid "Override fieldsets"
 msgstr ""
 
@@ -89,6 +94,11 @@ msgctxt "Setting section description"
 msgid ""
 "You can create ticket fieldsets for attendee information collection %1$shere"
 "%2$s."
+msgstr ""
+
+#: src/Tec/Settings.php:336
+msgctxt "Default option"
+msgid "No default fieldset"
 msgstr ""
 
 #: src/Tec/Settings_Helper.php:136
