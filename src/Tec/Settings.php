@@ -208,7 +208,7 @@ class Settings {
 		$fields = [
 			'default-fieldset-heading' => [
 				'type' => 'html',
-				'html' => $this->get_defaiult_fieldset_intro_text(),
+				'html' => $this->get_default_fieldset_intro_text(),
 			],
 			'rsvp_default_fieldset'    => [
 				'type'            => 'dropdown',
@@ -297,8 +297,8 @@ class Settings {
 	 *
 	 * @return string
 	 */
-	private function get_defaiult_fieldset_intro_text() {
-		$result = '<h3>' . esc_html_x( 'Default Ticket Fieldsets for Collecting Attendee Registration Information', 'Settings header', 'tec-labs-default-ticket-fieldset' ) . '</h3>';
+	private function get_default_fieldset_intro_text() {
+		$result = '<h3 id="default-ticket-fieldset-settings">' . esc_html_x( 'Default Ticket Fieldsets for Collecting Attendee Registration Information', 'Settings header', 'tec-labs-default-ticket-fieldset' ) . '</h3>';
 		$result .= '<div style="margin-left: 20px;">';
 		$result .= '<p>';
 		$result .= esc_html_x( 'You can set up default fieldsets that will be saved with every newly created RSVP or ticket, for tickets created both on the backend or through the Community Events submission form.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
