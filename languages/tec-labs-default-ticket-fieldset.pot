@@ -3,10 +3,9 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Event Tickets Extension: Default Ticket Fieldset\n"
-"POT-Creation-Date: 2021-10-23 16:41+0200\n"
+"POT-Creation-Date: 2021-11-03 23:02+0100\n"
 "PO-Revision-Date: 2021-10-15 22:23+0200\n"
-"Last-Translator: Andras Guseo <aguseo@gmail.com>\n"
-"Language-Team: Andras Guseo <aguseo@gmail.com>\n"
+"Language-Team: The Events Calendar <support@theeventscalendar.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,7 +26,7 @@ msgid ""
 "the extension was deactivated."
 msgstr ""
 
-#: src/Tec/Plugin.php:254
+#: src/Tec/Plugin.php:253
 msgid "Settings"
 msgstr ""
 
