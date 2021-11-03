@@ -212,7 +212,7 @@ class Settings {
 			],
 			'rsvp_default_fieldset'    => [
 				'type'            => 'dropdown',
-				'label'           => esc_html__( 'RSVP', 'tec-labs-default-ticket-fieldset' ),
+				'label'           => esc_html_x( 'RSVP', 'Setting label', 'tec-labs-default-ticket-fieldset' ),
 				'tooltip'         => esc_html_x( 'The Ticket Fieldset to be added when an RSVP is created.', 'Setting description', 'tec-labs-default-ticket-fieldset' ),
 				'validation_type' => 'options',
 				'options'         => $ticket_fieldsets,
@@ -222,9 +222,9 @@ class Settings {
 		if ( class_exists( 'WooCommerce' ) ) {
 			$fields['wooticket_default_fieldset'] = [
 				'type'            => 'dropdown',
-				'label'           => esc_html__( 'WooCommerce ticket', 'tec-labs-default-ticket-fieldset' ),
+				'label'           => esc_html_x( 'WooCommerce ticket', 'Setting label', 'tec-labs-default-ticket-fieldset' ),
 				'tooltip'         => sprintf(
-										// Translators: %s Name of the eCommerce platform.
+									// Translators: %s Name of the eCommerce platform.
 										esc_html_x(
 											'The Ticket Fieldset to be added when a ticket with %s is created.',
 											'Setting description',
@@ -240,9 +240,9 @@ class Settings {
 		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
 			$fields['eddticket_default_fieldset'] = [
 				'type'            => 'dropdown',
-				'label'           => esc_html__( 'EDD ticket', 'tec-labs-default-ticket-fieldset' ),
+				'label'           => esc_html_x( 'EDD ticket', 'Setting label', 'tec-labs-default-ticket-fieldset' ),
 				'tooltip'         => sprintf(
-										// Translators: %s Name of the eCommerce platform.
+									// Translators: %s Name of the eCommerce platform.
 										esc_html_x(
 											'The Ticket Fieldset to be added when a ticket with %s is created.',
 											'Setting description',
@@ -258,7 +258,7 @@ class Settings {
 
 		$fields['override_fieldset'] = [
 			'type'            => 'checkbox_bool',
-			'label'           => esc_html__( 'Override fieldsets', 'tec-labs-default-ticket-fieldset' ),
+			'label'           => esc_html_x( 'Override fieldsets', 'Setting label', 'tec-labs-default-ticket-fieldset' ),
 			'tooltip'         => esc_html_x( 'Enable if you want to force the selected fieldsets on ticket creation.', 'Setting description', 'tec-labs-default-ticket-fieldset' ),
 			'validation_type' => 'boolean',
 			'default'         => false,
@@ -332,7 +332,9 @@ class Settings {
 		$fieldset_class = new \Tribe__Tickets_Plus__Meta__Fieldset;
 		$fieldsets      = $fieldset_class->get_fieldsets();
 
-		$dropdown = [ '' => 'No default fieldset' ];
+		$dropdown = [
+			'' => esc_html_x( 'No default fieldset', 'Default option', 'tec-labs-default-ticket-fieldset' )
+		];
 
 		foreach ( $fieldsets as $fieldset ) {
 			$dropdown[ $fieldset->ID ] = $fieldset->post_title;
