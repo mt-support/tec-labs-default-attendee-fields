@@ -2,9 +2,9 @@
 /**
  * Plugin Class.
  *
- * @since 1.0.0
- *
  * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @since   1.0.0
+ *
  */
 
 namespace Tribe\Extensions\Default_Ticket_Fieldset;
@@ -12,9 +12,9 @@ namespace Tribe\Extensions\Default_Ticket_Fieldset;
 /**
  * Class Plugin
  *
- * @since 1.0.0
- *
  * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @since   1.0.0
+ *
  */
 class Plugin extends \tad_DI52_ServiceProvider {
 	/**
@@ -69,8 +69,6 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	 * @since 1.0.0
 	 *
 	 * @var Settings
-	 *
-	 * TODO: Remove if not using settings
 	 */
 	private $settings;
 
@@ -99,12 +97,11 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		}
 
 		// Do the settings.
-		// TODO: Remove if not using settings
 		$this->get_settings();
 
 		// Start binds.
 
-
+		add_action( 'tribe_tickets_ticket_add', [ $this, 'apply_default_fieldset' ], 10, 3 );
 
 		// End binds.
 
@@ -143,22 +140,18 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	 *
 	 * Settings_Helper will append a trailing underscore before each option.
 	 *
-	 * @return string
-     *
 	 * @see \Tribe\Extensions\Default_Ticket_Fieldset\Settings::set_options_prefix()
+	 * @return string
 	 *
-	 * TODO: Remove if not using settings
 	 */
 	private function get_options_prefix() {
-		return (string) str_replace( '-', '_', 'tribe-ext-default-ticket-fieldset' );
+		return (string) str_replace( '-', '_', 'tec-labs-default-ticket-fieldset' );
 	}
 
 	/**
 	 * Get Settings instance.
 	 *
 	 * @return Settings
-	 *
-	 * TODO: Remove if not using settings
 	 */
 	private function get_settings() {
 		if ( empty( $this->settings ) ) {
@@ -172,8 +165,6 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	 * Get all of this extension's options.
 	 *
 	 * @return array
-	 *
-	 * TODO: Remove if not using settings
 	 */
 	public function get_all_options() {
 		$settings = $this->get_settings();
@@ -184,16 +175,84 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	/**
 	 * Get a specific extension option.
 	 *
-	 * @param $option
+	 * @param        $option
 	 * @param string $default
 	 *
 	 * @return array
-	 *
-	 * TODO: Remove if not using settings
 	 */
 	public function get_option( $option, $default = '' ) {
 		$settings = $this->get_settings();
 
 		return $settings->get_option( $option, $default );
+	}
+
+	/**
+	 * Apply a fieldset to a newly created RSVP or ticket.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int                           $post_id The ID of the post / event for which the RSVP / ticket is being created.
+	 * @param Tribe__Tickets__Ticket_Object $ticket  The ticket object with all its data.
+	 * @param array                         $data    The ticket data sent.
+	 */
+	function apply_default_fieldset( $post_id, $ticket, $data ) {
+
+		// Run only when the ticket is getting created. Not on update.
+		if ( ! empty( $data['ticket_id'] ) ) {
+			return;
+		}
+
+		$options = $this->get_all_options();
+
+		// If override is not checked and there is a fieldset, then don't override.
+		if (
+			! $options['override_fieldset']
+			&& count( $data['tribe-tickets-input'] ) > 1
+		) {
+			return;
+		}
+
+		if ( Tribe__Tickets__RSVP == $data['ticket_provider'] ) {
+			$default_form_post_id = $options['rsvp_default_fieldset'];
+		} elseif ( Tribe__Tickets_Plus__Commerce__WooCommerce__Main == $data['ticket_provider'] ) {
+			$default_form_post_id = $options['wooticket_default_fieldset'];
+		} elseif ( Tribe__Tickets_Plus__Commerce__EDD__Main == $data['ticket_provider'] ) {
+			$default_form_post_id = $options['eddticket_default_fieldset'];
+		} else {
+			return;
+		}
+
+		if (
+			empty( $default_form_post_id )
+			|| !isset ( $default_form_post_id )
+			|| 0 == $default_form_post_id
+		) {
+			return;
+		}
+
+		// Get postmeta `_tribe_tickets_meta_template` from `$default_form_post_id`.
+		$fieldset = get_post_meta( $default_form_post_id, '_tribe_tickets_meta_template', true );
+
+		// Update postmeta for the RSVP / Ticket.
+		if ( ! empty( $fieldset ) ) {
+			update_post_meta( $ticket->ID, '_tribe_tickets_meta', $fieldset );
+			update_post_meta( $ticket->ID, '_tribe_tickets_meta_enabled', 'yes' );
+		}
+
+	}
+
+	/**
+	 * Add a `Settings` link to the plugin actions on the plugins page.
+	 *
+	 * @param $links array The array of links for a plugin on the Plugins page.
+	 *
+	 * @return array
+	 */
+	public function plugin_settings_link( $links ) {
+		$url           = get_admin_url() . 'edit.php?post_type=tribe_events&page=tribe-common&tab=event-tickets#default-ticket-fieldset-settings';
+		$settings_link = '<a href="' . $url . '">' . __( 'Settings', 'tec-labs-default-ticket-fieldset' ) . '</a>';
+		array_push( $links, $settings_link );
+
+		return $links;
 	}
 }

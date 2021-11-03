@@ -3,19 +3,18 @@ Contributors: theeventscalendar
 Donate link: https://evnt.is/29
 Tags: events, calendar
 Requires at least: 4.9
-Tested up to: 5.7
+Tested up to: 5.8.1
 Requires PHP: 5.6
 Stable tag: 1.0.0
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-
+Select a fieldset that will be added to all RSVPs and tickets when they are created.
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and Markdown parsed.
+With this extension you can add a default fieldset to the RSVPs and tickets when they are created. If a fieldset is
+added manually, then they will stay in place unless the override option is selected.
 
 == Installation ==
 
@@ -37,6 +36,6 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 == Changelog ==
 
-= [1.0.0] YYYY-MM-DD =
+= [1.0.0] TBD =
 
 * Initial release

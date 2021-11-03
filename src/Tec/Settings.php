@@ -2,18 +2,17 @@
 /**
  * Settings Object.
  *
- * @since 1.0.0
- *
  * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @since   1.0.0
+ *
  */
+
 namespace Tribe\Extensions\Default_Ticket_Fieldset;
 
 use Tribe__Settings_Manager;
 
 /**
  * Do the Settings.
- *
- * TODO: Delete file if not using settings
  */
 class Settings {
 
@@ -36,17 +35,12 @@ class Settings {
 	/**
 	 * Settings constructor.
 	 *
-	 * TODO: Update this entire class for your needs, or remove the entire `src` directory this file is in and do not load it in the main plugin file.
-	 *
 	 * @param string $options_prefix Recommended: the plugin text domain, with hyphens converted to underscores.
 	 */
 	public function __construct( $options_prefix ) {
 		$this->settings_helper = new Settings_Helper();
 
 		$this->set_options_prefix( $options_prefix );
-
-		// Remove settings specific to Google Maps
-		add_action( 'admin_init', [ $this, 'remove_settings' ] );
 
 		// Add settings specific to OSM
 		add_action( 'admin_init', [ $this, 'add_settings' ] );
@@ -88,7 +82,7 @@ class Settings {
 	 */
 	private function set_options_prefix( $options_prefix = '' ) {
 		if ( empty( $opts_prefix ) ) {
-			$opts_prefix = str_replace( '-', '_', '__TRIBE_DOMAIN__' ); // The text domain.
+			$opts_prefix = str_replace( '-', '_', 'tec-labs-default-ticket-fieldset' ); // The text domain.
 		}
 
 		$opts_prefix = $opts_prefix . '_';
@@ -205,48 +199,75 @@ class Settings {
 	}
 
 	/**
-	 * Here is an example of removing settings from Events > Settings > General tab > "Map Settings" section
-	 * that are specific to Google Maps.
-	 *
-	 * TODO: Remove this method and the corresponding hook in `__construct()` if you don't want to remove any settings.
-	 */
-	public function remove_settings() {
-		// Remove "Enable Google Maps" checkbox
-		$this->settings_helper->remove_field( 'embedGoogleMaps', 'general' );
-
-		// Remove "Map view search distance limit" (default of 25)
-		$this->settings_helper->remove_field( 'geoloc_default_geofence', 'general' );
-
-		// Remove "Google Maps default zoom level" (0-21, default of 10)
-		$this->settings_helper->remove_field( 'embedGoogleMapsZoom', 'general' );
-	}
-
-	/**
 	 * Adds a new section of fields to Events > Settings > General tab, appearing after the "Map Settings" section
 	 * and before the "Miscellaneous Settings" section.
-	 *
-	 * TODO: Move the setting to where you want and update this docblock. If you like it here, just delete this TODO.
 	 */
 	public function add_settings() {
+		$ticket_fieldsets = $this->get_ticket_fieldsets();
+
 		$fields = [
-			// TODO: Settings heading start. Remove this element if not needed. Also remove the corresponding `get_example_intro_text()` method below.
-			'Example'   => [
+			'default-fieldset-heading' => [
 				'type' => 'html',
-				'html' => $this->get_example_intro_text(),
+				'html' => $this->get_default_fieldset_intro_text(),
 			],
-			// TODO: Settings heading end.
-			'a_setting' => [ // TODO: Change setting.
-				'type'            => 'text',
-				'label'           => esc_html__( 'Example setting', '__TRIBE_DOMAIN__' ),
-				'tooltip'         => sprintf( esc_html__( 'Example setting description. Enter your custom URL, including "http://" or "https://", for example %s.', '__TRIBE_DOMAIN__' ), '<code>https://demo.theeventscalendar.com/</code>' ),
-				'validation_type' => 'html',
+			'rsvp_default_fieldset'    => [
+				'type'            => 'dropdown',
+				'label'           => esc_html_x( 'RSVP', 'Setting label', 'tec-labs-default-ticket-fieldset' ),
+				'tooltip'         => esc_html_x( 'The Ticket Fieldset to be added when an RSVP is created.', 'Setting description', 'tec-labs-default-ticket-fieldset' ),
+				'validation_type' => 'options',
+				'options'         => $ticket_fieldsets,
 			],
+		];
+
+		if ( class_exists( 'WooCommerce' ) ) {
+			$fields['wooticket_default_fieldset'] = [
+				'type'            => 'dropdown',
+				'label'           => esc_html_x( 'WooCommerce ticket', 'Setting label', 'tec-labs-default-ticket-fieldset' ),
+				'tooltip'         => sprintf(
+									// Translators: %s Name of the eCommerce platform.
+										esc_html_x(
+											'The Ticket Fieldset to be added when a ticket with %s is created.',
+											'Setting description',
+											'tec-labs-default-ticket-fieldset'
+										),
+										'WooCommerce'
+				),
+				'validation_type' => 'options',
+				'options'         => $ticket_fieldsets,
+			];
+		}
+
+		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
+			$fields['eddticket_default_fieldset'] = [
+				'type'            => 'dropdown',
+				'label'           => esc_html_x( 'EDD ticket', 'Setting label', 'tec-labs-default-ticket-fieldset' ),
+				'tooltip'         => sprintf(
+									// Translators: %s Name of the eCommerce platform.
+										esc_html_x(
+											'The Ticket Fieldset to be added when a ticket with %s is created.',
+											'Setting description',
+											'tec-labs-default-ticket-fieldset'
+										),
+										'Easy Digital Downloads'
+				),
+				'validation_type' => 'options',
+				'options'         => $ticket_fieldsets,
+
+			];
+		}
+
+		$fields['override_fieldset'] = [
+			'type'            => 'checkbox_bool',
+			'label'           => esc_html_x( 'Override fieldsets', 'Setting label', 'tec-labs-default-ticket-fieldset' ),
+			'tooltip'         => esc_html_x( 'Enable if you want to force the selected fieldsets on ticket creation.', 'Setting description', 'tec-labs-default-ticket-fieldset' ),
+			'validation_type' => 'boolean',
+			'default'         => false,
 		];
 
 		$this->settings_helper->add_fields(
 			$this->prefix_settings_field_keys( $fields ),
-			'general',
-			'tribeEventsMiscellaneousTitle',
+			'event-tickets',
+			'ticket-paypal-heading',
 			true
 		);
 	}
@@ -274,19 +295,52 @@ class Settings {
 	/**
 	 * Here is an example of getting some HTML for the Settings Header.
 	 *
-	 * TODO: Delete this method if you do not need a heading for your settings. Also remove the corresponding element in the the $fields array in the `add_settings()` method above.
-	 *
 	 * @return string
 	 */
-	private function get_example_intro_text() {
-		$result = '<h3>' . esc_html_x( 'Example Extension Setup', 'Settings header', '__TRIBE_DOMAIN__' ) . '</h3>';
+	private function get_default_fieldset_intro_text() {
+		$result = '<h3 id="default-ticket-fieldset-settings">' . esc_html_x( 'Default Ticket Fieldsets for Collecting Attendee Registration Information', 'Settings header', 'tec-labs-default-ticket-fieldset' ) . '</h3>';
 		$result .= '<div style="margin-left: 20px;">';
 		$result .= '<p>';
-		$result .= esc_html_x( 'Some text here about this settings section.', 'Setting section description', '__TRIBE_DOMAIN__' );
+		$result .= esc_html_x( 'You can set up default fieldsets that will be saved with every newly created RSVP or ticket, for tickets created both on the backend or through the Community Events submission form.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
+		$result .= ' ';
+		$result .= esc_html_x( 'If a fieldset is already being added to a ticket manually, then the defaults will not be applied, unless the override setting is enabled.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
+		$result .= '<br>';
+		$result .= sprintf(
+			// Translators: %1$s opening <a> tag with URL, %2$s closing </a> tag
+			esc_html_x(
+				'You can create ticket fieldsets for attendee information collection %1$shere%2$s.',
+				'Setting section description',
+				'tec-labs-default-ticket-fieldset'
+			),
+			'<a href="' . get_site_url() . ' . /wp-admin/edit.php?post_type=ticket-meta-fieldset">',
+			'</a>'
+		);
 		$result .= '</p>';
 		$result .= '</div>';
 
 		return $result;
+	}
+
+	/**
+	 * Get the list of the fieldsets.
+	 *
+	 * @since 1.0.0
+	 * @return array
+	 *
+	 */
+	private function get_ticket_fieldsets() {
+		$fieldset_class = new \Tribe__Tickets_Plus__Meta__Fieldset;
+		$fieldsets      = $fieldset_class->get_fieldsets();
+
+		$dropdown = [
+			'' => esc_html_x( 'No default fieldset', 'Default option', 'tec-labs-default-ticket-fieldset' )
+		];
+
+		foreach ( $fieldsets as $fieldset ) {
+			$dropdown[ $fieldset->ID ] = $fieldset->post_title;
+		}
+
+		return $dropdown;
 	}
 
 }
