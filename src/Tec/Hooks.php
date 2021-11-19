@@ -5,13 +5,13 @@
  * To remove a filter:
  * ```php
  *  remove_filter( 'some_filter', [ tribe( Tribe\Extensions\Default_Attendee_Fields\Hooks::class ), 'some_filtering_method' ] );
- *  remove_filter( 'some_filter', [ tribe( 'extension.default_ticket_fieldset.hooks' ), 'some_filtering_method' ] );
+ *  remove_filter( 'some_filter', [ tribe( 'extension.default_attendee_fields.hooks' ), 'some_filtering_method' ] );
  * ```
  *
  * To remove an action:
  * ```php
  *  remove_action( 'some_action', [ tribe( Tribe\Extensions\Default_Attendee_Fields\Hooks::class ), 'some_method' ] );
- *  remove_action( 'some_action', [ tribe( 'extension.default_ticket_fieldset.hooks' ), 'some_method' ] );
+ *  remove_action( 'some_action', [ tribe( 'extension.default_attendee_fields.hooks' ), 'some_method' ] );
  * ```
  *
  * @since 1.0.0
@@ -39,7 +39,7 @@ class Hooks extends \tad_DI52_ServiceProvider {
 	 */
 	public function register() {
 		$this->container->singleton( static::class, $this );
-		$this->container->singleton( 'extension.default_ticket_fieldset.hooks', $this );
+		$this->container->singleton( 'extension.default_attendee_fields.hooks', $this );
 
 		$this->add_actions();
 		$this->add_filters();

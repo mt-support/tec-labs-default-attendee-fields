@@ -42,7 +42,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	 *
 	 * @var string
 	 */
-	const FILE = TRIBE_EXTENSION_DEFAULT_TICKET_FIELDSET_FILE;
+	const FILE = TRIBE_EXTENSION_DEFAULT_ATTENDEE_FIELDS_FILE;
 
 	/**
 	 * @since 1.0.0
@@ -87,8 +87,8 @@ class Plugin extends \tad_DI52_ServiceProvider {
 
 		// Register this provider as the main one and use a bunch of aliases.
 		$this->container->singleton( static::class, $this );
-		$this->container->singleton( 'extension.default_ticket_fieldset', $this );
-		$this->container->singleton( 'extension.default_ticket_fieldset.plugin', $this );
+		$this->container->singleton( 'extension.default_attendee_fields', $this );
+		$this->container->singleton( 'extension.default_attendee_fields.plugin', $this );
 		$this->container->register( PUE::class );
 
 		if ( ! $this->check_plugin_dependencies() ) {
@@ -132,7 +132,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		$plugin_register->register_plugin();
 
 		$this->container->singleton( Plugin_Register::class, $plugin_register );
-		$this->container->singleton( 'extension.default_ticket_fieldset', $plugin_register );
+		$this->container->singleton( 'extension.default_attendee_fields', $plugin_register );
 	}
 
 	/**

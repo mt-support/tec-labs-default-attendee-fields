@@ -29,14 +29,14 @@
  *
  * @var string Base file that loaded the plugin.
  */
-define( 'TRIBE_EXTENSION_DEFAULT_TICKET_FIELDSET_FILE', __FILE__ );
+define( 'TRIBE_EXTENSION_DEFAULT_ATTENDEE_FIELDS_FILE', __FILE__ );
 
 /**
  * Register and load the service provider for loading the extension.
  *
  * @since 1.0.0
  */
-function tribe_extension_default_ticket_fieldset() {
+function tribe_extension_default_attendee_fields() {
 	// When we don't have autoloader from common we bail.
 	if ( ! class_exists( 'Tribe__Autoloader' ) ) {
 		return;
@@ -71,5 +71,5 @@ function tribe_extension_default_ticket_fieldset() {
 }
 
 // Loads after common is already properly loaded.
-add_action( 'tribe_common_loaded', 'tribe_extension_default_ticket_fieldset' );
+add_action( 'tribe_common_loaded', 'tribe_extension_default_attendee_fields' );
 add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), '\Tribe\Extensions\Default_Attendee_Fields\Plugin::plugin_settings_link' );

@@ -63,7 +63,7 @@ class PUE extends \tad_DI52_ServiceProvider {
 	 */
 	public function register() {
 		$this->container->singleton( static::class, $this );
-		$this->container->singleton( 'extension.default_ticket_fieldset.pue', $this );
+		$this->container->singleton( 'extension.default_attendee_fields.pue', $this );
 
 		// Bail to avoid notice.
 		if ( ! static:: $is_active ) {
