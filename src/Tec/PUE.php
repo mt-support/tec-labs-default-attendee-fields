@@ -27,7 +27,7 @@ class PUE extends \tad_DI52_ServiceProvider {
 	 *
 	 * @var string
 	 */
-	private static $pue_slug = 'extension-default-ticket-fieldset';
+	private static $pue_slug = 'extension-default-attendee-fields';
 
 	/**
 	 * Whether to load PUE or not.
