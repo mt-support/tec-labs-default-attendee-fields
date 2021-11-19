@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:       Event Tickets Extension: Default Ticket Fieldset
+ * Plugin Name:       Event Tickets Extension: Default Attendee Fields
  * Plugin URI:        https://theeventscalendar.com/extensions/default-attendee-fields/
  * GitHub Plugin URI: https://github.com/mt-support/tec-labs-default-attendee-fields
- * Description:       Select a fieldset that will be added to all RSVPs and tickets when they are created. You can find the settings under Events > Settings > Tickets tab > Default Ticket Fieldsets section.
+ * Description:       Select a fieldset that will be added to all RSVPs and tickets when they are created. You can find the settings under Events > Settings > Tickets tab > Default Attendee Fields section.
  * Version:           1.0.0
  * Author:            The Events Calendar
  * Author URI:        https://evnt.is/1971
@@ -53,7 +53,7 @@ function tribe_extension_default_ticket_fieldset() {
 	if ( ! class_exists( '\Tribe\Extensions\Default_Ticket_Fieldset\Plugin' ) ) {
 		tribe_transient_notice(
 			'default-attendee-fields',
-			'<p>' . esc_html__( 'Couldn\'t properly load "Event Tickets Extension: Default Ticket Fieldset" the extension was deactivated.', 'tec-labs-default-attendee-fields' ) . '</p>',
+			'<p>' . esc_html__( 'Couldn\'t properly load "Event Tickets Extension: Default Attendee Fields" the extension was deactivated.', 'tec-labs-default-attendee-fields' ) . '</p>',
 			[],
 			// 1 second after that make sure the transient is removed.
 			1
