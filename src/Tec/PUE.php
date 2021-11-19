@@ -4,10 +4,10 @@
  *
  * @since 1.0.0
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset;
+ * @package Tribe\Extensions\Default_Attendee_Fields;
  */
 
-namespace Tribe\Extensions\Default_Ticket_Fieldset;
+namespace Tribe\Extensions\Default_Attendee_Fields;
 
 use Tribe__PUE__Checker;
 
@@ -16,7 +16,7 @@ use Tribe__PUE__Checker;
  *
  * @since 1.0.0
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset;
+ * @package Tribe\Extensions\Default_Attendee_Fields;
  */
 class PUE extends \tad_DI52_ServiceProvider {
 

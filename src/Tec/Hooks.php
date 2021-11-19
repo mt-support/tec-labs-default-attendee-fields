@@ -4,22 +4,22 @@
  *
  * To remove a filter:
  * ```php
- *  remove_filter( 'some_filter', [ tribe( Tribe\Extensions\Default_Ticket_Fieldset\Hooks::class ), 'some_filtering_method' ] );
+ *  remove_filter( 'some_filter', [ tribe( Tribe\Extensions\Default_Attendee_Fields\Hooks::class ), 'some_filtering_method' ] );
  *  remove_filter( 'some_filter', [ tribe( 'extension.default_ticket_fieldset.hooks' ), 'some_filtering_method' ] );
  * ```
  *
  * To remove an action:
  * ```php
- *  remove_action( 'some_action', [ tribe( Tribe\Extensions\Default_Ticket_Fieldset\Hooks::class ), 'some_method' ] );
+ *  remove_action( 'some_action', [ tribe( Tribe\Extensions\Default_Attendee_Fields\Hooks::class ), 'some_method' ] );
  *  remove_action( 'some_action', [ tribe( 'extension.default_ticket_fieldset.hooks' ), 'some_method' ] );
  * ```
  *
  * @since 1.0.0
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset;
+ * @package Tribe\Extensions\Default_Attendee_Fields;
  */
 
-namespace Tribe\Extensions\Default_Ticket_Fieldset;
+namespace Tribe\Extensions\Default_Attendee_Fields;
 
 use Tribe__Main as Common;
 
@@ -28,7 +28,7 @@ use Tribe__Main as Common;
  *
  * @since 1.0.0
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset;
+ * @package Tribe\Extensions\Default_Attendee_Fields;
  */
 class Hooks extends \tad_DI52_ServiceProvider {
 

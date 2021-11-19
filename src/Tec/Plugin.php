@@ -2,17 +2,17 @@
 /**
  * Plugin Class.
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @package Tribe\Extensions\Default_Attendee_Fields
  * @since   1.0.0
  *
  */
 
-namespace Tribe\Extensions\Default_Ticket_Fieldset;
+namespace Tribe\Extensions\Default_Attendee_Fields;
 
 /**
  * Class Plugin
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @package Tribe\Extensions\Default_Attendee_Fields
  * @since   1.0.0
  *
  */
@@ -140,7 +140,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	 *
 	 * Settings_Helper will append a trailing underscore before each option.
 	 *
-	 * @see \Tribe\Extensions\Default_Ticket_Fieldset\Settings::set_options_prefix()
+	 * @see \Tribe\Extensions\Default_Attendee_Fields\Settings::set_options_prefix()
 	 * @return string
 	 *
 	 */
