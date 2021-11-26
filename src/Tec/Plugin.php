@@ -251,6 +251,25 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		}
 		return $x;
 
+	}
+
+	public function apply_default_fieldset_block_editor( $post_id, $post, $update, $post_before ) {
+		if ( 'revision' == $post->post_type  ) {
+			return false;
+		}
+		$data['ticket_id'] = $post_id;
+		$data['block_editor'] = true;
+		$data['block_editor_update'] = $update;
+
+		if ( 'tribe_rsvp_tickets' == $post->post_type ) {
+			$data['ticket_provider'] = 'Tribe__Tickets__RSVP';
+		} elseif ( 'product' == $post->post_type ) {
+			$data['ticket_provider'] = 'Tribe__Tickets_Plus__Commerce__WooCommerce__Main';
+		} elseif ( 'download' == $post->post_type ) {
+			$data['ticket_provider'] = 'Tribe__Tickets_Plus__Commerce__EDD__Main';
+		} else {
+			return false;
+		}
 
 	}
 
