@@ -209,7 +209,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 			! $options['override_fieldset']
 			&& count( $data['tribe-tickets-input'] ) > 1
 		) {
-			return;
+			return false;
 		}
 
 		if (
@@ -228,7 +228,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		) {
 			$default_form_post_id = $options['eddticket_default_fieldset'];
 		} else {
-			return;
+			return false;
 		}
 
 		if (
@@ -236,7 +236,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 			|| !isset ( $default_form_post_id )
 			|| 0 == $default_form_post_id
 		) {
-			return;
+			return false;
 		}
 
 		// Get postmeta `_tribe_tickets_meta_template` from `$default_form_post_id`.
