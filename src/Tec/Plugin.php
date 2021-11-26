@@ -242,10 +242,12 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		// Get postmeta `_tribe_tickets_meta_template` from `$default_form_post_id`.
 		$fieldset = get_post_meta( $default_form_post_id, '_tribe_tickets_meta_template', true );
 
+		$ticket_id = isset( $ticket->ID ) ? $ticket->ID :$data['ticket_id'] ;
+
 		// Update postmeta for the RSVP / Ticket.
 		if ( ! empty( $fieldset ) ) {
-			update_post_meta( $ticket->ID, '_tribe_tickets_meta', $fieldset );
-			update_post_meta( $ticket->ID, '_tribe_tickets_meta_enabled', 'yes' );
+			$x = update_post_meta( $ticket_id, '_tribe_tickets_meta', $fieldset );
+			$y = update_post_meta( $ticket_id, '_tribe_tickets_meta_enabled', 'yes' );
 		}
 
 	}
