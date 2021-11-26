@@ -212,11 +212,20 @@ class Plugin extends \tad_DI52_ServiceProvider {
 			return;
 		}
 
-		if ( Tribe__Tickets__RSVP == $data['ticket_provider'] ) {
+		if (
+			Tribe__Tickets__RSVP == $ticket->provider_class
+			|| Tribe__Tickets__RSVP == $data['ticket_provider']
+		) {
 			$default_form_post_id = $options['rsvp_default_fieldset'];
-		} elseif ( Tribe__Tickets_Plus__Commerce__WooCommerce__Main == $data['ticket_provider'] ) {
+		} elseif (
+			Tribe__Tickets_Plus__Commerce__WooCommerce__Main == $ticket->provider_class
+			|| Tribe__Tickets_Plus__Commerce__WooCommerce__Main == $data['ticket_provider']
+		) {
 			$default_form_post_id = $options['wooticket_default_fieldset'];
-		} elseif ( Tribe__Tickets_Plus__Commerce__EDD__Main == $data['ticket_provider'] ) {
+		} elseif (
+			Tribe__Tickets_Plus__Commerce__EDD__Main == $ticket->provider_class
+			|| Tribe__Tickets_Plus__Commerce__EDD__Main == $data['ticket_provider']
+		) {
 			$default_form_post_id = $options['eddticket_default_fieldset'];
 		} else {
 			return;
