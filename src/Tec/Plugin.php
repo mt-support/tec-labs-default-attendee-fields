@@ -271,6 +271,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 			return false;
 		}
 
+		$this->apply_default_fieldset( $post_id, null, $data );
 	}
 
 	/**
