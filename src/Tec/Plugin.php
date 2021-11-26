@@ -198,8 +198,15 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	function apply_default_fieldset( $post_id, $ticket, $data ) {
 
 		// Run only when the ticket is getting created. Not on update.
-		if ( ! empty( $data['ticket_id'] ) ) {
-			return;
+		// When coming from the block editor we always send the ticket_id.
+		if (
+			(
+				! empty( $data['ticket_id'] )
+				&& ! $data['block_editor']
+			)
+			|| $data['block_editor_update']
+		) {
+			return false;
 		}
 
 		$options = $this->get_all_options();
