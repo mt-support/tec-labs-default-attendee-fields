@@ -249,6 +249,8 @@ class Plugin extends \tad_DI52_ServiceProvider {
 			$x = update_post_meta( $ticket_id, '_tribe_tickets_meta', $fieldset );
 			$y = update_post_meta( $ticket_id, '_tribe_tickets_meta_enabled', 'yes' );
 		}
+		return $x;
+
 
 	}
 
