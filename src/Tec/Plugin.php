@@ -261,13 +261,15 @@ class Plugin extends \tad_DI52_ServiceProvider {
 
 	}
 
-	public function apply_default_fieldset_block_editor( $post_id, $post, $update, $post_before ) {
-		if ( 'revision' == $post->post_type  ) {
+	public function apply_default_fieldset_block_editor( $post, $request, $create ) {
+		// Bail when updating the RSVP.
+		if ( ! $create ) {
 			return false;
 		}
-		$data['ticket_id'] = $post_id;
+
+		$data['ticket_id'] = $post->ID;
 		$data['block_editor'] = true;
-		$data['block_editor_update'] = $update;
+		$data['block_editor_update'] =  ! $create;
 
 		if ( 'tribe_rsvp_tickets' == $post->post_type ) {
 			$data['ticket_provider'] = 'Tribe__Tickets__RSVP';
@@ -279,7 +281,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 			return false;
 		}
 
-		$this->apply_default_fieldset( $post_id, null, $data );
+		$this->apply_default_fieldset( $post->ID, null, $data );
 	}
 
 	/**
