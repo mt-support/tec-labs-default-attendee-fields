@@ -261,6 +261,15 @@ class Plugin extends \tad_DI52_ServiceProvider {
 
 	}
 
+	/**
+	 * Gather the data when an RSVP is created in the block editor.
+	 *
+	 * @param object $post    Inserted or updated post object.
+	 * @param object $request Request object.
+	 * @param bool   $create  True when creating a post, false when updating.
+	 *
+	 * @return bool|void      False when updating.
+	 */
 	public function apply_default_fieldset_block_editor( $post, $request, $create ) {
 		// Bail when updating the RSVP.
 		if ( ! $create ) {
@@ -270,16 +279,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		$data['ticket_id'] = $post->ID;
 		$data['block_editor'] = true;
 		$data['block_editor_update'] =  ! $create;
-
-		if ( 'tribe_rsvp_tickets' == $post->post_type ) {
-			$data['ticket_provider'] = 'Tribe__Tickets__RSVP';
-		} elseif ( 'product' == $post->post_type ) {
-			$data['ticket_provider'] = 'Tribe__Tickets_Plus__Commerce__WooCommerce__Main';
-		} elseif ( 'download' == $post->post_type ) {
-			$data['ticket_provider'] = 'Tribe__Tickets_Plus__Commerce__EDD__Main';
-		} else {
-			return false;
-		}
+		$data['ticket_provider'] = 'Tribe__Tickets__RSVP';
 
 		$this->apply_default_fieldset( $post->ID, null, $data );
 	}
