@@ -100,7 +100,6 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		$this->get_settings();
 
 		// Start binds.
-
 		add_action( 'tribe_tickets_ticket_add', [ $this, 'apply_default_fieldset' ], 10, 3 );
 
 		add_action( 'rest_insert_tribe_rsvp_tickets', [ $this, 'apply_default_fieldset_block_editor' ], 10, 3 );
@@ -254,11 +253,13 @@ class Plugin extends \tad_DI52_ServiceProvider {
 
 		// Update postmeta for the RSVP / Ticket.
 		if ( ! empty( $fieldset ) ) {
-			$x = update_post_meta( $ticket_id, '_tribe_tickets_meta', $fieldset );
-			$y = update_post_meta( $ticket_id, '_tribe_tickets_meta_enabled', 'yes' );
-		}
-		return $x;
+			$meta = update_post_meta( $ticket_id, '_tribe_tickets_meta', $fieldset );
+			$meta_enabled = update_post_meta( $ticket_id, '_tribe_tickets_meta_enabled', 'yes' );
 
+			return ( $meta && $meta_enabled );
+		}
+
+		return false;
 	}
 
 	/**
