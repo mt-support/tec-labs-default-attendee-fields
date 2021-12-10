@@ -103,6 +103,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 
 		add_action( 'tribe_tickets_ticket_add', [ $this, 'apply_default_fieldset' ], 10, 3 );
 
+		add_action( 'rest_insert_tribe_rsvp_tickets', [ $this, 'apply_default_fieldset_block_editor' ], 10, 3 );
 		// End binds.
 
 		$this->container->register( Hooks::class );
@@ -220,18 +221,18 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		}
 
 		if (
-			Tribe__Tickets__RSVP == $ticket->provider_class
-			|| Tribe__Tickets__RSVP == $data['ticket_provider']
+			'Tribe__Tickets__RSVP' == $ticket->provider_class
+			|| 'Tribe__Tickets__RSVP' == $data['ticket_provider']
 		) {
 			$default_form_post_id = $options['rsvp_default_fieldset'];
 		} elseif (
-			Tribe__Tickets_Plus__Commerce__WooCommerce__Main == $ticket->provider_class
-			|| Tribe__Tickets_Plus__Commerce__WooCommerce__Main == $data['ticket_provider']
+			'Tribe__Tickets_Plus__Commerce__WooCommerce__Main' == $ticket->provider_class
+			|| 'Tribe__Tickets_Plus__Commerce__WooCommerce__Main' == $data['ticket_provider']
 		) {
 			$default_form_post_id = $options['wooticket_default_fieldset'];
 		} elseif (
-			Tribe__Tickets_Plus__Commerce__EDD__Main == $ticket->provider_class
-			|| Tribe__Tickets_Plus__Commerce__EDD__Main == $data['ticket_provider']
+			'Tribe__Tickets_Plus__Commerce__EDD__Main' == $ticket->provider_class
+			|| 'Tribe__Tickets_Plus__Commerce__EDD__Main' == $data['ticket_provider']
 		) {
 			$default_form_post_id = $options['eddticket_default_fieldset'];
 		} else {
