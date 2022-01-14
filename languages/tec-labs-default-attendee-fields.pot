@@ -1,15 +1,16 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Event Tickets Extension: Default Ticket Fieldset\n"
-"POT-Creation-Date: 2021-11-03 23:29+0100\n"
+"POT-Creation-Date: 2022-01-15 00:07+0100\n"
 "PO-Revision-Date: 2021-10-15 22:23+0200\n"
+"Last-Translator: \n"
 "Language-Team: The Events Calendar <support@theeventscalendar.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.0\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: plugin.php\n"
@@ -17,17 +18,16 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
 "_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: \n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
 #: plugin.php:56
 msgid ""
-"Couldn't properly load \"Event Tickets Extension: Default Ticket Fieldset\" "
+"Couldn't properly load \"Event Tickets Extension: Default Attendee Fields\" "
 "the extension was deactivated."
 msgstr ""
 
-#: src/Tec/Plugin.php:253
+#: src/Tec/Plugin.php:298
 msgid "Settings"
 msgstr ""
 
@@ -38,7 +38,7 @@ msgstr ""
 
 #: src/Tec/Settings.php:216
 msgctxt "Setting description"
-msgid "The Ticket Fieldset to be added when an RSVP is created."
+msgid "The Attendee Fields to be added when an RSVP is created."
 msgstr ""
 
 #: src/Tec/Settings.php:225
@@ -49,7 +49,7 @@ msgstr ""
 #: src/Tec/Settings.php:229 src/Tec/Settings.php:247
 #, php-format
 msgctxt "Setting description"
-msgid "The Ticket Fieldset to be added when a ticket with %s is created."
+msgid "The Attendee Fields to be added when a ticket with %s is created."
 msgstr ""
 
 #: src/Tec/Settings.php:243
@@ -70,25 +70,27 @@ msgstr ""
 #: src/Tec/Settings.php:301
 msgctxt "Settings header"
 msgid ""
-"Default Ticket Fieldsets for Collecting Attendee Registration Information"
-msgstr ""
-
-#: src/Tec/Settings.php:304
-msgctxt "Setting section description"
-msgid ""
-"You can set up default fieldsets that will be saved with every newly created "
-"RSVP or ticket, for tickets created both on the backend or through the "
-"Community Events submission form."
+"Default Attendee Fields for Collecting Attendee Registration Information"
 msgstr ""
 
 #: src/Tec/Settings.php:306
+#, php-format
+msgctxt "Setting section description"
+msgid ""
+"You can choose a %1$sticket fieldset%2$s (attendee fields) that will be "
+"added to every newly created RSVP or ticket. The fields will be added to "
+"RSVPs and tickets created both on the backend or through the Community "
+"Events submission form."
+msgstr ""
+
+#: src/Tec/Settings.php:311
 msgctxt "Setting section description"
 msgid ""
 "If a fieldset is already being added to a ticket manually, then the defaults "
 "will not be applied, unless the override setting is enabled."
 msgstr ""
 
-#: src/Tec/Settings.php:311
+#: src/Tec/Settings.php:316
 #, php-format
 msgctxt "Setting section description"
 msgid ""
@@ -96,7 +98,7 @@ msgid ""
 "%2$s."
 msgstr ""
 
-#: src/Tec/Settings.php:336
+#: src/Tec/Settings.php:341
 msgctxt "Default option"
 msgid "No default fieldset"
 msgstr ""
@@ -106,18 +108,18 @@ msgid "Miscellaneous Settings"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-msgid "Event Tickets Extension: Default Ticket Fieldset"
+msgid "Event Tickets Extension: Default Attendee Fields"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid "https://theeventscalendar.com/extensions/default-ticket-fieldset/"
+msgid "https://theeventscalendar.com/extensions/default-attendee-fields/"
 msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
 "Select a fieldset that will be added to all RSVPs and tickets when they are "
 "created. You can find the settings under Events > Settings > Tickets tab > "
-"Default Ticket Fieldsets section."
+"Default Attendee Fields section."
 msgstr ""
 
 #. Author of the plugin/theme
