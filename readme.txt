@@ -1,9 +1,9 @@
-=== Event Tickets Extension: Default Ticket Fieldset ===
+=== Event Tickets Extension: Default Attendee Fields ===
 Contributors: theeventscalendar
 Donate link: https://evnt.is/29
 Tags: events, calendar
 Requires at least: 4.9
-Tested up to: 5.8.1
+Tested up to: 5.8.3
 Requires PHP: 5.6
 Stable tag: 1.0.0
 License: GPL version 3 or any later version
