@@ -188,6 +188,8 @@ class Plugin extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Apply a fieldset to a newly created RSVP or ticket.
+	 * Runs directly when Classic editor is used.
+	 * Called from `apply_default_fieldset_block_editor` when Block editor is used.
 	 *
 	 * @since 1.0.0
 	 *
@@ -197,8 +199,10 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	 */
 	function apply_default_fieldset( $post_id, $ticket, $data ) {
 
-		// Run only when the ticket is getting created. Not on update.
-		// When coming from the block editor we always send the ticket_id.
+		// Run only when the ticket is getting created, so there is no ticket_id.
+		// (Don't run on update.)
+		// When coming from the block editor, the block editor always send the ticket_id,
+		// so we are sending and checking the `block_editor_update` parameter instead.
 		if (
 			(
 				! empty( $data['ticket_id'] )
@@ -206,19 +210,20 @@ class Plugin extends \tad_DI52_ServiceProvider {
 			)
 			|| $data['block_editor_update']
 		) {
-			return false;
+			return;
 		}
 
 		$options = $this->get_all_options();
 
-		// If override is not checked and there is a fieldset, then don't override.
+		// If override is not checked and the RSVP / ticket already has a fieldset, then don't override.
 		if (
 			! $options['override_fieldset']
 			&& count( $data['tribe-tickets-input'] ) > 1
 		) {
-			return false;
+			return;
 		}
 
+		// Checking for ticket provider and fetching the related fieldset ID.
 		if (
 			'Tribe__Tickets__RSVP' == $ticket->provider_class
 			|| 'Tribe__Tickets__RSVP' == $data['ticket_provider']
@@ -235,31 +240,29 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		) {
 			$default_form_post_id = $options['eddticket_default_fieldset'];
 		} else {
-			return false;
+			return;
 		}
 
+		// If there is no default fieldset set up in the options, then bail.
 		if (
 			empty( $default_form_post_id )
-			|| !isset ( $default_form_post_id )
 			|| 0 == $default_form_post_id
 		) {
-			return false;
+			return;
 		}
 
-		// Get postmeta `_tribe_tickets_meta_template` from `$default_form_post_id`.
+		// Get the fieldset value.
+		// Get the postmeta `_tribe_tickets_meta_template` from `$default_form_post_id`.
 		$fieldset = get_post_meta( $default_form_post_id, '_tribe_tickets_meta_template', true );
 
-		$ticket_id = isset( $ticket->ID ) ? $ticket->ID :$data['ticket_id'] ;
+		$ticket_id = isset( $ticket->ID ) ? $ticket->ID : $data['ticket_id'] ;
 
-		// Update postmeta for the RSVP / Ticket.
+		// Update postmeta for the RSVP / Ticket with the fieldset.
 		if ( ! empty( $fieldset ) ) {
-			$meta = update_post_meta( $ticket_id, '_tribe_tickets_meta', $fieldset );
-			$meta_enabled = update_post_meta( $ticket_id, '_tribe_tickets_meta_enabled', 'yes' );
-
-			return ( $meta && $meta_enabled );
+			update_post_meta( $ticket_id, '_tribe_tickets_meta', $fieldset );
+			update_post_meta( $ticket_id, '_tribe_tickets_meta_enabled', 'yes' );
 		}
 
-		return false;
 	}
 
 	/**
