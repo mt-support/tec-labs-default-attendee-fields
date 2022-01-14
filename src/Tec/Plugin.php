@@ -208,7 +208,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 				! empty( $data['ticket_id'] )
 				&& ! $data['block_editor']
 			)
-			|| $data['block_editor_update']
+			|| isset( $data['block_editor_update'] )
 		) {
 			return;
 		}
@@ -218,6 +218,8 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		// If override is not checked and the RSVP / ticket already has a fieldset, then don't override.
 		if (
 			! $options['override_fieldset']
+			&& isset( $data['tribe-tickets-input'] )
+			&& is_array( $data['tribe-tickets-input'] )
 			&& count( $data['tribe-tickets-input'] ) > 1
 		) {
 			return;
@@ -267,6 +269,10 @@ class Plugin extends \tad_DI52_ServiceProvider {
 
 	/**
 	 * Gather the data when an RSVP is created in the block editor.
+	 * Then call `apply_default_fieldset` to create the fieldset.
+	 *
+	 * Note: Woo and EDD tickets are handled differently when created in the block editor.
+	 * The `apply_default_fieldset` takes care of those by default.
 	 *
 	 * @param object $post    Inserted or updated post object.
 	 * @param object $request Request object.
@@ -277,7 +283,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	public function apply_default_fieldset_block_editor( $post, $request, $create ) {
 		// Bail when updating the RSVP.
 		if ( ! $create ) {
-			return false;
+			return;
 		}
 
 		$data['ticket_id'] = $post->ID;
@@ -285,6 +291,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 		$data['block_editor_update'] =  ! $create;
 		$data['ticket_provider'] = 'Tribe__Tickets__RSVP';
 
+		// Hand over to `apply_default_fieldset`
 		$this->apply_default_fieldset( $post->ID, null, $data );
 	}
 
