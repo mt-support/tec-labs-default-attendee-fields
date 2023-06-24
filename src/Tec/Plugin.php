@@ -9,6 +9,8 @@
 
 namespace Tribe\Extensions\Default_Ticket_Fieldset;
 
+use TEC\Common\Contracts\Service_Provider;
+
 /**
  * Class Plugin
  *
@@ -16,7 +18,7 @@ namespace Tribe\Extensions\Default_Ticket_Fieldset;
  * @since   1.0.0
  *
  */
-class Plugin extends \tad_DI52_ServiceProvider {
+class Plugin extends Service_Provider {
 	/**
 	 * Stores the version for the plugin.
 	 *
@@ -24,7 +26,7 @@ class Plugin extends \tad_DI52_ServiceProvider {
 	 *
 	 * @var string
 	 */
-	const VERSION = '1.0.0';
+	const VERSION = '1.0.1';
 
 	/**
 	 * Stores the base slug for the plugin.
