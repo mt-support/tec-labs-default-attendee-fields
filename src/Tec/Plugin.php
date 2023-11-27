@@ -210,7 +210,10 @@ class Plugin extends Service_Provider {
 				! empty( $data['ticket_id'] )
 				&& ! $data['block_editor']
 			)
-			|| isset( $data['block_editor_update'] )
+			|| (
+				isset( $data['block_editor_update'] )
+				&& $data['block_editor_update']
+			)
 		) {
 			return;
 		}
@@ -227,18 +230,29 @@ class Plugin extends Service_Provider {
 			return;
 		}
 
+		// $ticket->provider_class should be set ...
+		if ( isset( $ticket->provider_class ) ) {
+			$ticket_type = $this->get_ticket_type( $ticket->provider_class );
+		// ... except for Block Editor RSVP
+		} elseif ( isset( $data['ticket_provider'] ) ) {
+			$ticket_type = $this->get_ticket_type( $data['ticket_provider'] );
+		} else {
+			return;
+		}
+
+
 		// Checking for ticket provider and fetching the related fieldset ID.
-		switch ( $data['ticket_provider'] ) {
-			case "Tribe__Tickets__RSVP":
+		switch ( $ticket_type ) {
+			case "rsvp":
 				$default_form_post_id = $options['rsvp_default_fieldset'];
 				break;
-			case "Tribe__Tickets_Plus__Commerce__WooCommerce__Main":
+			case "wooticket":
 				$default_form_post_id = $options['wooticket_default_fieldset'];
 				break;
-			case "Tribe__Tickets_Plus__Commerce__EDD__Main":
+			case "eddticket":
 				$default_form_post_id = $options['eddticket_default_fieldset'];
 				break;
-			case "TEC\Tickets\Commerce\Module":
+			case "tcticket":
 				$default_form_post_id = $options['tcticket_default_fieldset'];
 				break;
 			default:
@@ -272,7 +286,7 @@ class Plugin extends Service_Provider {
 	 * Gather the data when an RSVP is created in the block editor.
 	 * Then call `apply_default_fieldset` to create the fieldset.
 	 *
-	 * Note: Woo and EDD tickets are handled differently when created in the block editor.
+	 * Note: Woo, EDD and Tickets Commerce tickets are handled differently when created in the block editor.
 	 * The `apply_default_fieldset` takes care of those by default.
 	 *
 	 * @param object $post    Inserted or updated post object.
@@ -287,13 +301,35 @@ class Plugin extends Service_Provider {
 			return;
 		}
 
-		$data['ticket_id'] = $post->ID;
-		$data['block_editor'] = true;
-		$data['block_editor_update'] =  ! $create;
-		$data['ticket_provider'] = 'Tribe__Tickets__RSVP';
+		$data['ticket_id']           = $post->ID;
+		$data['block_editor']        = true;
+		$data['block_editor_update'] = ! $create;
+		$data['ticket_provider']     = 'Tribe__Tickets__RSVP';
 
 		// Hand over to `apply_default_fieldset`
-		$this->apply_default_fieldset( $post->ID, null, $data );
+		$this->apply_default_fieldset( $post->ID, $request, $data );
+	}
+
+	/**
+	 * Get the ticket type.
+	 * The Classic Editor and the Block Editor handle this slightly differently.
+	 *
+	 * @param string|null $ticket_provider  The Service Provider Class.
+	 *
+	 * @return false|string
+	 */
+	public function get_ticket_type( string $ticket_provider = null ) {
+		if ( $ticket_provider == 'Tribe__Tickets__RSVP' ) {
+			return "rsvp";
+		} elseif ( $ticket_provider == 'Tribe__Tickets_Plus__Commerce__WooCommerce__Main' ) {
+			return "wooticket";
+		} elseif ( $ticket_provider == 'Tribe__Tickets_Plus__Commerce__EDD__Main' ) {
+			return "eddticket";
+		} elseif ( $ticket_provider == 'TEC\Tickets\Commerce\Module' ) {
+			return "tcticket";
+		} else {
+			return false;
+		}
 	}
 
 	/**
