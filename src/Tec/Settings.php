@@ -265,8 +265,8 @@ class Settings {
 		];
 
 		$this->settings_helper->add_fields(
-			$this->prefix_settings_field_keys( $fields ),
-			'event-tickets',
+			$this->prefix_settings_field_keys( $fields ), // fields
+			'attendee-registration',
 			'ticket-attendee-page-id',
 			false
 		);
