@@ -212,9 +212,7 @@ class Plugin extends Service_Provider {
 		// If override is not checked and the RSVP / ticket already has a fieldset, then don't override.
 		if (
 			! $options['override_fieldset']
-			&& isset( $data['tribe-tickets-input'] )
-			&& is_array( $data['tribe-tickets-input'] )
-			&& count( $data['tribe-tickets-input'] ) > 1
+			&& $this->has_fieldset( $data )
 		) {
 			return;
 		}
@@ -269,6 +267,23 @@ class Plugin extends Service_Provider {
 			update_post_meta( $ticket_id, '_tribe_tickets_meta_enabled', 'yes' );
 		}
 
+	}
+
+	/**
+	 * Check if an RSVP / ticket already has a fieldset.
+	 *
+	 * @param array $data The ticket data.
+	 *
+	 * @return bool
+	 */
+	public function has_fieldset( $data ) {
+		return
+			// The array item exists
+			isset( $data['tribe-tickets-input'] )
+			// It is an array
+			&& is_array( $data['tribe-tickets-input'] )
+			// The array has more than one element
+			&& count( $data['tribe-tickets-input'] ) > 1;
 	}
 
 	/**
