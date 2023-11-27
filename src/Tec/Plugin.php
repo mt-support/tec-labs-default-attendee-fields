@@ -228,14 +228,19 @@ class Plugin extends Service_Provider {
 		}
 
 		// Checking for ticket provider and fetching the related fieldset ID.
-		if ( 'Tribe__Tickets__RSVP' == $data['ticket_provider'] ) {
-			$default_form_post_id = $options['rsvp_default_fieldset'];
-		} elseif ( 'Tribe__Tickets_Plus__Commerce__WooCommerce__Main' == $data['ticket_provider'] ) {
-			$default_form_post_id = $options['wooticket_default_fieldset'];
-		} elseif ( 'Tribe__Tickets_Plus__Commerce__EDD__Main' == $data['ticket_provider'] ) {
-			$default_form_post_id = $options['eddticket_default_fieldset'];
-		} else {
-			return;
+		switch ( $data['ticket_provider'] ) {
+			case "Tribe__Tickets__RSVP":
+				$default_form_post_id = $options['rsvp_default_fieldset'];
+				break;
+			case "Tribe__Tickets_Plus__Commerce__WooCommerce__Main":
+				$default_form_post_id = $options['wooticket_default_fieldset'];
+				break;
+			case "Tribe__Tickets_Plus__Commerce__EDD__Main":
+				$default_form_post_id = $options['eddticket_default_fieldset'];
+				break;
+			default:
+				$default_form_post_id = 0;
+				break;
 		}
 
 		// If there is no default fieldset set up in the options, then bail.
