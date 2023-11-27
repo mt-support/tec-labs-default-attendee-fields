@@ -4,7 +4,7 @@
  * Plugin URI:        https://theeventscalendar.com/extensions/default-attendee-fields/
  * GitHub Plugin URI: https://github.com/mt-support/tec-labs-default-attendee-fields
  * Description:       Select a fieldset that will be added to all RSVPs and tickets when they are created. You can find the settings under Events > Settings > Tickets tab > Default Attendee Fields section.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            The Events Calendar
  * Author URI:        https://evnt.is/1971
  * License:           GPL version 3 or any later version

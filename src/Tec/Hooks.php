@@ -21,6 +21,7 @@
 
 namespace Tribe\Extensions\Default_Attendee_Fields;
 
+use TEC\Common\Contracts\Service_Provider;
 use Tribe__Main as Common;
 
 /**
@@ -30,7 +31,7 @@ use Tribe__Main as Common;
  *
  * @package Tribe\Extensions\Default_Attendee_Fields;
  */
-class Hooks extends \tad_DI52_ServiceProvider {
+class Hooks extends Service_Provider {
 
 	/**
 	 * Binds and sets up implementations.

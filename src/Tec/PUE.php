@@ -9,6 +9,7 @@
 
 namespace Tribe\Extensions\Default_Attendee_Fields;
 
+use TEC\Common\Contracts\Service_Provider;
 use Tribe__PUE__Checker;
 
 /**
@@ -18,7 +19,7 @@ use Tribe__PUE__Checker;
  *
  * @package Tribe\Extensions\Default_Attendee_Fields;
  */
-class PUE extends \tad_DI52_ServiceProvider {
+class PUE extends Service_Provider {
 
 	/**
 	 * The slug used for PUE.
