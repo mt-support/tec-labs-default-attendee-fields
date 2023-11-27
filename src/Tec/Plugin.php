@@ -201,20 +201,9 @@ class Plugin extends Service_Provider {
 	 */
 	function apply_default_fieldset( $post_id, $ticket, $data ) {
 
-		// Run only when the ticket is getting created, so there is no ticket_id.
-		// (Don't run on update.)
-		// When coming from the block editor, the block editor always send the ticket_id,
-		// so we are sending and checking the `block_editor_update` parameter instead.
-		if (
-			(
-				! empty( $data['ticket_id'] )
-				&& ! $data['block_editor']
-			)
-			|| (
-				isset( $data['block_editor_update'] )
-				&& $data['block_editor_update']
-			)
-		) {
+		// Bail if it's an update (there is a ticket_id).
+		// When creating a new RSVP/ticket, the ticket_id is empty.
+		if ( ! empty( $data['ticket_id'] ) ) {
 			return;
 		}
 
@@ -272,7 +261,7 @@ class Plugin extends Service_Provider {
 		// Get the postmeta `_tribe_tickets_meta_template` from `$default_form_post_id`.
 		$fieldset = get_post_meta( $default_form_post_id, '_tribe_tickets_meta_template', true );
 
-		$ticket_id = isset( $ticket->ID ) ? $ticket->ID : $data['ticket_id'] ;
+		$ticket_id = isset( $ticket->ID ) ? $ticket->ID : $post_id ;
 
 		// Update postmeta for the RSVP / Ticket with the fieldset.
 		if ( ! empty( $fieldset ) ) {
@@ -301,9 +290,6 @@ class Plugin extends Service_Provider {
 			return;
 		}
 
-		$data['ticket_id']           = $post->ID;
-		$data['block_editor']        = true;
-		$data['block_editor_update'] = ! $create;
 		$data['ticket_provider']     = 'Tribe__Tickets__RSVP';
 
 		// Hand over to `apply_default_fieldset`
