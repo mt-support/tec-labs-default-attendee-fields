@@ -238,6 +238,9 @@ class Plugin extends Service_Provider {
 			case "Tribe__Tickets_Plus__Commerce__EDD__Main":
 				$default_form_post_id = $options['eddticket_default_fieldset'];
 				break;
+			case "TEC\Tickets\Commerce\Module":
+				$default_form_post_id = $options['tcticket_default_fieldset'];
+				break;
 			default:
 				$default_form_post_id = 0;
 				break;

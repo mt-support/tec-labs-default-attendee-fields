@@ -219,6 +219,24 @@ class Settings {
 			],
 		];
 
+		if ( tribe_get_option( 'tickets_commerce_enabled' ) ) {
+			$fields['tcticket_default_fieldset'] = [
+				'type'            => 'dropdown',
+				'label'           => esc_html_x( 'Tickets Commerce ticket', 'Setting label', 'tec-labs-default-attendee-fields' ),
+				'tooltip'         => sprintf(
+				// Translators: %s Name of the eCommerce platform.
+					esc_html_x(
+						'The Attendee Fields to be added when a ticket with %s is created.',
+						'Setting description',
+						'tec-labs-default-attendee-fields'
+					),
+					'Tickets Commerce'
+				),
+				'validation_type' => 'options',
+				'options'         => $ticket_fieldsets,
+			];
+		}
+
 		if ( class_exists( 'WooCommerce' ) ) {
 			$fields['wooticket_default_fieldset'] = [
 				'type'            => 'dropdown',
