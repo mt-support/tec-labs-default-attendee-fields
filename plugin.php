@@ -71,5 +71,4 @@ function tribe_extension_default_attendee_fields() {
 }
 
 // Loads after common is already properly loaded.
-add_action( 'tribe_common_loaded', 'tribe_extension_default_attendee_fields' );
-add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), '\Tribe\Extensions\Default_Attendee_Fields\Plugin::plugin_settings_link' );
+add_action( 'tribe_common_loaded', 'tribe_extension_default_ticket_fieldset' );
