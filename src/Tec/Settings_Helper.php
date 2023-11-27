@@ -51,7 +51,7 @@ class Settings_Helper {
 	 * @param int $priority Priority at which this hooks into 'tribe_settings_tab_fields'.
 	 */
 	public function __construct( $priority = 100 ) {
-		add_filter( 'tribe_settings_tab_fields', [ $this, 'filter_options' ], $priority, 2 );
+		add_filter( 'tec_tickets_plus_attendee_registration_tab_settings', [ $this, 'filter_options' ], $priority, 2 );
 	}
 
 
@@ -123,8 +123,7 @@ class Settings_Helper {
 	 *
 	 * @return array $fields The fields within tribe settings page
 	 */
-	public function filter_options( $fields, $tab ) {
-
+	public function filter_options( $fields, $tab = 'attendee-registration' ) {
 		// Fields appended to misc section.
 		if ( array_key_exists( $tab, $this->insert_fields_misc ) ) {
 
@@ -136,18 +135,18 @@ class Settings_Helper {
 						'html' => '<h3>' . esc_html__( 'Miscellaneous Settings', 'tec-labs-default-attendee-fields' ) . '</h3>',
 					],
 				];
-				$fields       = Tribe__Main::array_insert_before_key( 'tribe-form-content-end', $fields, $misc_heading );
+				$fields['fields']       = Tribe__Main::array_insert_before_key( 'tribe-form-content-end', $fields['fields'], $misc_heading );
 			}
 
 			// Insert these settings under misc heading.
-			$fields = Tribe__Main::array_insert_after_key( 'tribeMiscSettings', $fields, $this->insert_fields_misc[ $tab ] );
+			$fields['fields'] = Tribe__Main::array_insert_after_key( 'tribeMiscSettings', $fields['fields'], $this->insert_fields_misc[ $tab ] );
 		}
 
 		// Fields inserted above a neighboring field.
 		if ( array_key_exists( $tab, $this->insert_fields_above ) ) {
 
 			foreach ( $this->insert_fields_above[ $tab ] as $insert_after => $new_field ) {
-				$fields = Tribe__Main::array_insert_before_key( $insert_after, $fields, $new_field );
+				$fields['fields'] = Tribe__Main::array_insert_before_key( $insert_after, $fields['fields'], $new_field );
 			}
 		}
 
@@ -155,7 +154,7 @@ class Settings_Helper {
 		if ( array_key_exists( $tab, $this->insert_fields_below ) ) {
 
 			foreach ( $this->insert_fields_below[ $tab ] as $insert_after => $new_field ) {
-				$fields = Tribe__Main::array_insert_after_key( $insert_after, $fields, $new_field );
+				$fields['fields'] = Tribe__Main::array_insert_after_key( $insert_after, $fields['fields'], $new_field );
 			}
 		}
 
