@@ -66,9 +66,32 @@ function tribe_extension_default_attendee_fields() {
 		deactivate_plugins( __FILE__, true );
 		return;
 	}
-
 	tribe_register_provider( '\Tribe\Extensions\Default_Attendee_Fields\Plugin' );
+	add_filter( 'plugin_action_links', 'add_plugin_actions', 10, 2 );
 }
 
 // Loads after common is already properly loaded.
 add_action( 'tribe_common_loaded', 'tribe_extension_default_attendee_fields' );
+
+/**
+ * Add a `Settings` link to the plugin actions on the plugins page.
+ *
+ * @param array $plugin_actions The array of links for a plugin on the Plugins page.
+ * @param string $plugin_file
+ *
+ * @return array
+ */
+function add_plugin_actions( array $plugin_actions, string $plugin_file ) {
+	if ( ! class_exists( 'Tribe__Tickets_Plus__Main' ) ) {
+		return $plugin_actions;
+	}
+
+	$new_actions = [];
+
+	if ( trailingslashit( basename( plugin_dir_path( __FILE__ ) ) ) . 'plugin.php' === $plugin_file ) {
+		$url                                             = esc_url( admin_url( 'admin.php?page=tec-tickets-settings&tab=attendee-registration#default-attendee-fields-settings' ) );
+		$new_actions['tec-labs-default-attendee-fields'] = sprintf( __( '<a href="%s">Settings</a>', 'tec-labs-default-attendee-fields' ), $url );
+	}
+
+	return array_merge( $new_actions, $plugin_actions );
+}

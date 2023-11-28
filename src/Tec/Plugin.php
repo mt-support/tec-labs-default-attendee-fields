@@ -336,18 +336,22 @@ class Plugin extends Service_Provider {
 		}
 	}
 
-	/**
-	 * Add a `Settings` link to the plugin actions on the plugins page.
-	 *
-	 * @param $links array The array of links for a plugin on the Plugins page.
-	 *
-	 * @return array
-	 */
-	public function plugin_settings_link( $links ) {
-		$url           = get_admin_url() . 'edit.php?post_type=tribe_events&page=tribe-common&tab=event-tickets#default-attendee-fields-settings';
-		$settings_link = '<a href="' . $url . '">' . __( 'Settings', 'tec-labs-default-attendee-fields' ) . '</a>';
-		array_push( $links, $settings_link );
 
-		return $links;
+	public function plugin_settings_link( $plugin_actions, $plugin_file ) {
+
+		$new_actions = [];
+
+		if ( trailingslashit( basename( plugin_dir_path( __FILE__ ) ) ) . 'plugin.php' === $plugin_file ) {
+			$url           = esc_url( admin_url( 'edit.php?post_type=tribe_events&page=tribe-common&tab=event-tickets#default-attendee-fields-settings' ) );
+			$new_actions['tldaf_settings'] = sprintf( __( '<a href="%s">Settings</a>', 'tec-labs-default-attendee-fields' ), $url );
+		}
+
+		return array_merge( $new_actions, $plugin_actions );
+
+		//$url           = get_admin_url() . 'edit.php?post_type=tribe_events&page=tribe-common&tab=event-tickets#default-attendee-fields-settings';
+		//$settings_link = '<a href="' . $url . '">' . __( 'Settings', 'tec-labs-default-attendee-fields' ) . '</a>';
+		//array_push( $plugin_actions, $settings_link );
+
+		//return $plugin_actions;
 	}
 }
