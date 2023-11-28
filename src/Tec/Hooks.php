@@ -4,22 +4,22 @@
  *
  * To remove a filter:
  * ```php
- *  remove_filter( 'some_filter', [ tribe( Tribe\Extensions\Default_Ticket_Fieldset\Hooks::class ), 'some_filtering_method' ] );
- *  remove_filter( 'some_filter', [ tribe( 'extension.default_ticket_fieldset.hooks' ), 'some_filtering_method' ] );
+ *  remove_filter( 'some_filter', [ tribe( Tribe\Extensions\Default_Attendee_Fields\Hooks::class ), 'some_filtering_method' ] );
+ *  remove_filter( 'some_filter', [ tribe( 'extension.default_attendee_fields.hooks' ), 'some_filtering_method' ] );
  * ```
  *
  * To remove an action:
  * ```php
- *  remove_action( 'some_action', [ tribe( Tribe\Extensions\Default_Ticket_Fieldset\Hooks::class ), 'some_method' ] );
- *  remove_action( 'some_action', [ tribe( 'extension.default_ticket_fieldset.hooks' ), 'some_method' ] );
+ *  remove_action( 'some_action', [ tribe( Tribe\Extensions\Default_Attendee_Fields\Hooks::class ), 'some_method' ] );
+ *  remove_action( 'some_action', [ tribe( 'extension.default_attendee_fields.hooks' ), 'some_method' ] );
  * ```
  *
  * @since 1.0.0
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset;
+ * @package Tribe\Extensions\Default_Attendee_Fields;
  */
 
-namespace Tribe\Extensions\Default_Ticket_Fieldset;
+namespace Tribe\Extensions\Default_Attendee_Fields;
 
 use TEC\Common\Contracts\Service_Provider;
 use Tribe__Main as Common;
@@ -29,7 +29,7 @@ use Tribe__Main as Common;
  *
  * @since 1.0.0
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset;
+ * @package Tribe\Extensions\Default_Attendee_Fields;
  */
 class Hooks extends Service_Provider {
 
@@ -40,7 +40,7 @@ class Hooks extends Service_Provider {
 	 */
 	public function register() {
 		$this->container->singleton( static::class, $this );
-		$this->container->singleton( 'extension.default_ticket_fieldset.hooks', $this );
+		$this->container->singleton( 'extension.default_attendee_fields.hooks', $this );
 
 		$this->add_actions();
 		$this->add_filters();
@@ -71,7 +71,7 @@ class Hooks extends Service_Provider {
 	 */
 	public function load_text_domains() {
 		$mopath = tribe( Plugin::class )->plugin_dir . 'lang/';
-		$domain = 'tec-labs-default-ticket-fieldset';
+		$domain = 'tec-labs-default-attendee-fields';
 
 		// This will load `wp-content/languages/plugins` files first.
 		Common::instance()->load_text_domain( $domain, $mopath );

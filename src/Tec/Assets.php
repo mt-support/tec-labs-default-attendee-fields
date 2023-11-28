@@ -10,10 +10,10 @@
  *
  * @since 1.0.0
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @package Tribe\Extensions\Default_Attendee_Fields
  */
 
-namespace Tribe\Extensions\Default_Ticket_Fieldset;
+namespace Tribe\Extensions\Default_Attendee_Fields;
 
 use TEC\Common\Contracts\Service_Provider;
 
@@ -22,7 +22,7 @@ use TEC\Common\Contracts\Service_Provider;
  *
  * @since 1.0.0
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @package Tribe\Extensions\Default_Attendee_Fields
  */
 class Assets extends Service_Provider {
 	/**
@@ -32,7 +32,7 @@ class Assets extends Service_Provider {
 	 */
 	public function register() {
 		$this->container->singleton( static::class, $this );
-		$this->container->singleton( 'extension.default_ticket_fieldset.assets', $this );
+		$this->container->singleton( 'extension.default_attendee_fields.assets', $this );
 
 		$plugin = tribe( Plugin::class );
 

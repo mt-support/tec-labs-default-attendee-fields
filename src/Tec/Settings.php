@@ -2,12 +2,12 @@
 /**
  * Settings Object.
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @package Tribe\Extensions\Default_Attendee_Fields
  * @since   1.0.0
  *
  */
 
-namespace Tribe\Extensions\Default_Ticket_Fieldset;
+namespace Tribe\Extensions\Default_Attendee_Fields;
 
 use Tribe__Settings_Manager;
 
@@ -82,7 +82,7 @@ class Settings {
 	 */
 	private function set_options_prefix( $options_prefix = '' ) {
 		if ( empty( $opts_prefix ) ) {
-			$opts_prefix = str_replace( '-', '_', 'tec-labs-default-ticket-fieldset' ); // The text domain.
+			$opts_prefix = str_replace( '-', '_', 'tec-labs-default-attendee-fields' ); // The text domain.
 		}
 
 		$opts_prefix = $opts_prefix . '_';
@@ -212,23 +212,41 @@ class Settings {
 			],
 			'rsvp_default_fieldset'    => [
 				'type'            => 'dropdown',
-				'label'           => esc_html_x( 'RSVP', 'Setting label', 'tec-labs-default-ticket-fieldset' ),
-				'tooltip'         => esc_html_x( 'The Ticket Fieldset to be added when an RSVP is created.', 'Setting description', 'tec-labs-default-ticket-fieldset' ),
+				'label'           => esc_html_x( 'RSVP', 'Setting label', 'tec-labs-default-attendee-fields' ),
+				'tooltip'         => esc_html_x( 'The Attendee Fields to be added when an RSVP is created.', 'Setting description', 'tec-labs-default-attendee-fields' ),
 				'validation_type' => 'options',
 				'options'         => $ticket_fieldsets,
 			],
 		];
 
+		if ( tribe_get_option( 'tickets_commerce_enabled' ) ) {
+			$fields['tcticket_default_fieldset'] = [
+				'type'            => 'dropdown',
+				'label'           => esc_html_x( 'Tickets Commerce ticket', 'Setting label', 'tec-labs-default-attendee-fields' ),
+				'tooltip'         => sprintf(
+				// Translators: %s Name of the eCommerce platform.
+					esc_html_x(
+						'The Attendee Fields to be added when a ticket with %s is created.',
+						'Setting description',
+						'tec-labs-default-attendee-fields'
+					),
+					'Tickets Commerce'
+				),
+				'validation_type' => 'options',
+				'options'         => $ticket_fieldsets,
+			];
+		}
+
 		if ( class_exists( 'WooCommerce' ) ) {
 			$fields['wooticket_default_fieldset'] = [
 				'type'            => 'dropdown',
-				'label'           => esc_html_x( 'WooCommerce ticket', 'Setting label', 'tec-labs-default-ticket-fieldset' ),
+				'label'           => esc_html_x( 'WooCommerce ticket', 'Setting label', 'tec-labs-default-attendee-fields' ),
 				'tooltip'         => sprintf(
 									// Translators: %s Name of the eCommerce platform.
 										esc_html_x(
-											'The Ticket Fieldset to be added when a ticket with %s is created.',
+											'The Attendee Fields to be added when a ticket with %s is created.',
 											'Setting description',
-											'tec-labs-default-ticket-fieldset'
+											'tec-labs-default-attendee-fields'
 										),
 										'WooCommerce'
 				),
@@ -240,13 +258,13 @@ class Settings {
 		if ( class_exists( 'Easy_Digital_Downloads' ) ) {
 			$fields['eddticket_default_fieldset'] = [
 				'type'            => 'dropdown',
-				'label'           => esc_html_x( 'EDD ticket', 'Setting label', 'tec-labs-default-ticket-fieldset' ),
+				'label'           => esc_html_x( 'EDD ticket', 'Setting label', 'tec-labs-default-attendee-fields' ),
 				'tooltip'         => sprintf(
 									// Translators: %s Name of the eCommerce platform.
 										esc_html_x(
-											'The Ticket Fieldset to be added when a ticket with %s is created.',
+											'The Attendee Fields to be added when a ticket with %s is created.',
 											'Setting description',
-											'tec-labs-default-ticket-fieldset'
+											'tec-labs-default-attendee-fields'
 										),
 										'Easy Digital Downloads'
 				),
@@ -258,17 +276,17 @@ class Settings {
 
 		$fields['override_fieldset'] = [
 			'type'            => 'checkbox_bool',
-			'label'           => esc_html_x( 'Override fieldsets', 'Setting label', 'tec-labs-default-ticket-fieldset' ),
-			'tooltip'         => esc_html_x( 'Enable if you want to force the selected fieldsets on ticket creation.', 'Setting description', 'tec-labs-default-ticket-fieldset' ),
+			'label'           => esc_html_x( 'Override fieldsets', 'Setting label', 'tec-labs-default-attendee-fields' ),
+			'tooltip'         => esc_html_x( 'Enable if you want to force the selected fieldsets on ticket creation.', 'Setting description', 'tec-labs-default-attendee-fields' ),
 			'validation_type' => 'boolean',
 			'default'         => false,
 		];
 
 		$this->settings_helper->add_fields(
-			$this->prefix_settings_field_keys( $fields ),
-			'event-tickets',
-			'ticket-paypal-heading',
-			true
+			$this->prefix_settings_field_keys( $fields ), // fields
+			'attendee-registration',
+			'ticket-attendee-page-id',
+			false
 		);
 	}
 
@@ -298,21 +316,26 @@ class Settings {
 	 * @return string
 	 */
 	private function get_default_fieldset_intro_text() {
-		$result = '<h3 id="default-ticket-fieldset-settings">' . esc_html_x( 'Default Ticket Fieldsets for Collecting Attendee Registration Information', 'Settings header', 'tec-labs-default-ticket-fieldset' ) . '</h3>';
+		$result = '<h3 id="default-attendee-fields-settings">' . esc_html_x( 'Default Attendee Fields for Collecting Attendee Registration Information', 'Settings header', 'tec-labs-default-attendee-fields' ) . '</h3>';
 		$result .= '<div style="margin-left: 20px;">';
 		$result .= '<p>';
-		$result .= esc_html_x( 'You can set up default fieldsets that will be saved with every newly created RSVP or ticket, for tickets created both on the backend or through the Community Events submission form.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
+		$result .= sprintf(
+            // Translators: %1$s opening <a> tag with URL, %2$s closing </a> tag
+			esc_html_x( 'You can choose a %1$sticket fieldset%2$s (attendee fields) that will be added to every newly created RSVP or ticket. The fields will be added to RSVPs and tickets created both on the backend or through the Community Events submission form.', 'Setting section description', 'tec-labs-default-attendee-fields' ),
+			'<a href="' . get_site_url() . '/wp-admin/edit.php?post_type=ticket-meta-fieldset">',
+			'</a>'
+		);
 		$result .= ' ';
-		$result .= esc_html_x( 'If a fieldset is already being added to a ticket manually, then the defaults will not be applied, unless the override setting is enabled.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
+		$result .= esc_html_x( 'If a fieldset is already being added to a ticket manually, then the defaults will not be applied, unless the override setting is enabled.', 'Setting section description', 'tec-labs-default-attendee-fields' );
 		$result .= '<br>';
 		$result .= sprintf(
 			// Translators: %1$s opening <a> tag with URL, %2$s closing </a> tag
 			esc_html_x(
 				'You can create ticket fieldsets for attendee information collection %1$shere%2$s.',
 				'Setting section description',
-				'tec-labs-default-ticket-fieldset'
+				'tec-labs-default-attendee-fields'
 			),
-			'<a href="' . get_site_url() . ' . /wp-admin/edit.php?post_type=ticket-meta-fieldset">',
+			'<a href="' . get_site_url() . '/wp-admin/edit.php?post_type=ticket-meta-fieldset">',
 			'</a>'
 		);
 		$result .= '</p>';
@@ -333,7 +356,7 @@ class Settings {
 		$fieldsets      = $fieldset_class->get_fieldsets();
 
 		$dropdown = [
-			'' => esc_html_x( 'No default fieldset', 'Default option', 'tec-labs-default-ticket-fieldset' )
+			'' => esc_html_x( 'No default fieldset', 'Default option', 'tec-labs-default-attendee-fields' )
 		];
 
 		foreach ( $fieldsets as $fieldset ) {
