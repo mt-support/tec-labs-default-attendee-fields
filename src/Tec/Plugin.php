@@ -26,7 +26,7 @@ class Plugin extends Service_Provider {
 	 *
 	 * @var string
 	 */
-	const VERSION = '1.0.1';
+	const VERSION = '1.1.0';
 
 	/**
 	 * Stores the base slug for the plugin.
@@ -227,7 +227,6 @@ class Plugin extends Service_Provider {
 			return;
 		}
 
-
 		// Checking for ticket provider and fetching the related fieldset ID.
 		switch ( $ticket_type ) {
 			case "rsvp":
@@ -275,6 +274,8 @@ class Plugin extends Service_Provider {
 	 * @param array $data The ticket data.
 	 *
 	 * @return bool
+	 *
+	 * @since 1.1.0
 	 */
 	public function has_fieldset( $data ) {
 		return
@@ -318,6 +319,8 @@ class Plugin extends Service_Provider {
 	 * @param string|null $ticket_provider  The Service Provider Class.
 	 *
 	 * @return false|string
+	 *
+	 * @since 1.1.0
 	 */
 	public function get_ticket_type( string $ticket_provider = null ) {
 		if ( $ticket_provider == 'Tribe__Tickets__RSVP' ) {
