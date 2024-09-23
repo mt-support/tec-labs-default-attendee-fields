@@ -75,7 +75,7 @@ class Plugin extends Service_Provider {
 	private $settings;
 
 	/**
-	 * Setup the Extension's properties.
+	 * Set up the Extension's properties.
 	 *
 	 * This always executes even if the required plugins are not present.
 	 *
@@ -103,6 +103,7 @@ class Plugin extends Service_Provider {
 
 		// Start binds.
 
+		add_filter( 'plugin_action_links_' . $this->plugin_dir . 'plugin.php', [ $this, 'plugin_settings_link' ], 10, 4 );
 		add_action( 'tribe_tickets_ticket_add', [ $this, 'apply_default_fieldset' ], 10, 3 );
 
 		// End binds.
@@ -250,7 +251,7 @@ class Plugin extends Service_Provider {
 	 *
 	 * @return array
 	 */
-	public function plugin_settings_link( $links ) {
+	public function plugin_settings_link( $links, $plugin_file, $plugin_data, $context ) {
 		$url           = get_admin_url() . 'edit.php?post_type=tribe_events&page=tribe-common&tab=event-tickets#default-ticket-fieldset-settings';
 		$settings_link = '<a href="' . $url . '">' . __( 'Settings', 'tec-labs-default-ticket-fieldset' ) . '</a>';
 		array_push( $links, $settings_link );
