@@ -215,19 +215,26 @@ class Plugin extends Service_Provider {
 			return;
 		}
 
-		if ( Tribe__Tickets__RSVP == $data['ticket_provider'] ) {
-			$default_form_post_id = $options['rsvp_default_fieldset'];
-		} elseif ( Tribe__Tickets_Plus__Commerce__WooCommerce__Main == $data['ticket_provider'] ) {
-			$default_form_post_id = $options['wooticket_default_fieldset'];
-		} elseif ( Tribe__Tickets_Plus__Commerce__EDD__Main == $data['ticket_provider'] ) {
-			$default_form_post_id = $options['eddticket_default_fieldset'];
-		} else {
-			return;
+		switch ( $data['ticket_provider'] ) {
+			case 'Tribe__Tickets__RSVP':
+				$default_form_post_id = $options['rsvp_default_fieldset'];
+				break;
+			case 'TEC\Tickets\Commerce\Module':
+				$default_form_post_id = $options['tickets_commerce_default_fieldset'];
+				break;
+			case 'Tribe__Tickets_Plus__Commerce__WooCommerce__Main':
+				$default_form_post_id = $options['wooticket_default_fieldset'];
+				break;
+			case 'Tribe__Tickets_Plus__Commerce__EDD__Main':
+				$default_form_post_id = $options['eddticket_default_fieldset'];
+				break;
+			default:
+				return;
 		}
 
 		if (
 			empty( $default_form_post_id )
-			|| !isset ( $default_form_post_id )
+			|| ! isset ( $default_form_post_id )
 			|| 0 == $default_form_post_id
 		) {
 			return;
