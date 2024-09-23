@@ -262,7 +262,13 @@ class Plugin extends Service_Provider {
 	 * @return array
 	 */
 	public function plugin_settings_link( $links, $plugin_file, $plugin_data, $context ) {
-		$url           = get_admin_url() . 'edit.php?post_type=tribe_events&page=tribe-common&tab=event-tickets#default-ticket-fieldset-settings';
+		$url = add_query_arg(
+			       array(
+				       'page' => 'tec-tickets-settings',
+				       'tab'  => 'attendee-registration'
+			       ),
+			       admin_url('admin.php')
+		       ) . '#default-ticket-fieldset-settings';
 		$settings_link = '<a href="' . $url . '">' . __( 'Settings', 'tec-labs-default-ticket-fieldset' ) . '</a>';
 		array_push( $links, $settings_link );
 
