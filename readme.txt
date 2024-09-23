@@ -2,10 +2,10 @@
 Contributors: theeventscalendar
 Donate link: https://evnt.is/29
 Tags: events, calendar
-Requires at least: 4.9
-Tested up to: 5.8.1
-Requires PHP: 5.6
-Stable tag: 1.0.1
+Requires at least: 6.3
+Tested up to: 6.6.2
+Requires PHP: 7.4
+Stable tag: 1.1.0
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -35,6 +35,13 @@ Please visit our [extension library](https://theeventscalendar.com/extensions/) 
 We're always interested in your feedback and our [Help Desk](https://support.theeventscalendar.com/) are the best place to flag any issues. Do note, however, that the degree of support we provide for extensions like this one tends to be very limited.
 
 == Changelog ==
+
+= [1.1.0] 2024-09-24 =
+
+* Feature - Add support for Tickets Commerce tickets.
+* Fix - Ensure the Settings link is added to the plugin actions the correct way and points to the right page.
+* Fix - Correct the URL pointing to the Ticket Fieldsets admin page.
+* Tweak - Make sure the settings show up under Tickets → Settings → Attendee Registration.
 
 = [1.0.1] 2023-06-24 =
 

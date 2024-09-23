@@ -219,6 +219,9 @@ class Settings {
 			],
 		];
 
+		/**
+		 * @since 1.1.0
+		 */
 		if ( tec_tickets_commerce_is_enabled() ) {
 			$fields['tickets_commerce_default_fieldset'] = [
 				'type'            => 'dropdown',

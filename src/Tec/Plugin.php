@@ -26,7 +26,7 @@ class Plugin extends Service_Provider {
 	 *
 	 * @var string
 	 */
-	const VERSION = '1.0.1';
+	const VERSION = '1.1.0';
 
 	/**
 	 * Stores the base slug for the plugin.
@@ -219,6 +219,9 @@ class Plugin extends Service_Provider {
 			case 'Tribe__Tickets__RSVP':
 				$default_form_post_id = $options['rsvp_default_fieldset'];
 				break;
+			/**
+			 * @since 1.1.0
+			 */
 			case 'TEC\Tickets\Commerce\Module':
 				$default_form_post_id = $options['tickets_commerce_default_fieldset'];
 				break;
