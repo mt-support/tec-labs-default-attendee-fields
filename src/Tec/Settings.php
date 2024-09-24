@@ -219,6 +219,27 @@ class Settings {
 			],
 		];
 
+		/**
+		 * @since 1.1.0
+		 */
+		if ( tec_tickets_commerce_is_enabled() ) {
+			$fields['tickets_commerce_default_fieldset'] = [
+				'type'            => 'dropdown',
+				'label'           => esc_html_x( 'Tickets Commerce ticket', 'Setting label', 'tec-labs-default-ticket-fieldset' ),
+				'tooltip'         => sprintf(
+									// Translators: %s Name of the eCommerce platform.
+										esc_html_x(
+											'The Ticket Fieldset to be added when a ticket with %s is created.',
+											'Setting description',
+											'tec-labs-default-ticket-fieldset'
+										),
+										'Tickets Commerce'
+				),
+				'validation_type' => 'options',
+				'options'         => $ticket_fieldsets,
+			];
+		}
+
 		if ( class_exists( 'WooCommerce' ) ) {
 			$fields['wooticket_default_fieldset'] = [
 				'type'            => 'dropdown',
@@ -266,9 +287,9 @@ class Settings {
 
 		$this->settings_helper->add_fields(
 			$this->prefix_settings_field_keys( $fields ),
-			'event-tickets',
-			'ticket-paypal-heading',
-			true
+			'attendee-registration',
+			'ticket-attendee-page-id',
+			false
 		);
 	}
 
@@ -304,6 +325,8 @@ class Settings {
 		$result .= esc_html_x( 'You can set up default fieldsets that will be saved with every newly created RSVP or ticket, for tickets created both on the backend or through the Community Events submission form.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
 		$result .= ' ';
 		$result .= esc_html_x( 'If a fieldset is already being added to a ticket manually, then the defaults will not be applied, unless the override setting is enabled.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
+		$result .= ' ';
+		$result .= esc_html_x( 'Individual Attendee Collection fields are added based on the setting above.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
 		$result .= '<br>';
 		$result .= sprintf(
 			// Translators: %1$s opening <a> tag with URL, %2$s closing </a> tag
@@ -312,7 +335,7 @@ class Settings {
 				'Setting section description',
 				'tec-labs-default-ticket-fieldset'
 			),
-			'<a href="' . get_site_url() . ' . /wp-admin/edit.php?post_type=ticket-meta-fieldset">',
+			'<a href="' . get_site_url() . '/wp-admin/edit.php?post_type=ticket-meta-fieldset">',
 			'</a>'
 		);
 		$result .= '</p>';

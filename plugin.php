@@ -4,7 +4,7 @@
  * Plugin URI:        https://theeventscalendar.com/extensions/default-ticket-fieldset/
  * GitHub Plugin URI: https://github.com/mt-support/tec-labs-default-ticket-fieldset
  * Description:       Select a fieldset that will be added to all RSVPs and tickets when they are created. You can find the settings under Events > Settings > Tickets tab > Default Ticket Fieldsets section.
- * Version:           1.0.1
+ * Version:           1.1.0
  * Author:            The Events Calendar
  * Author URI:        https://evnt.is/1971
  * License:           GPL version 3 or any later version
@@ -72,4 +72,3 @@ function tribe_extension_default_ticket_fieldset() {
 
 // Loads after common is already properly loaded.
 add_action( 'tribe_common_loaded', 'tribe_extension_default_ticket_fieldset' );
-add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), '\Tribe\Extensions\Default_Ticket_Fieldset\Plugin::plugin_settings_link' );
