@@ -43,7 +43,7 @@ class Settings {
 		$this->set_options_prefix( $options_prefix );
 
 		// Add settings specific to OSM
-		add_action( 'admin_init', [ $this, 'add_settings' ] );
+		add_filter( 'tec_tickets_plus_attendee_registration_tab_settings', [ $this, 'add_settings' ] );
 	}
 
 	/**
@@ -71,7 +71,7 @@ class Settings {
 	}
 
 	/**
-	 * Set the options prefix to be used for this extension's settings.
+	 * Set the option prefix to be used for this extension's settings.
 	 *
 	 * Recommended: the plugin text domain, with hyphens converted to underscores.
 	 * Is forced to end with a single underscore. All double-underscores are converted to single.
@@ -91,7 +91,7 @@ class Settings {
 	}
 
 	/**
-	 * Get this extension's options prefix.
+	 * Get the option prefix of this extension.
 	 *
 	 * @see set_options_prefix()
 	 *
@@ -104,7 +104,7 @@ class Settings {
 	/**
 	 * Given an option key, get this extension's option value.
 	 *
-	 * This automatically prepends this extension's option prefix so you can just do `$this->get_option( 'a_setting' )`.
+	 * This automatically prepends the option prefix of this extension, so you can do `$this->get_option( 'a_setting' )`.
 	 *
 	 * @see tribe_get_option()
 	 *
@@ -137,7 +137,7 @@ class Settings {
 	}
 
 	/**
-	 * Get an array of all of this extension's options without array keys having the redundant prefix.
+	 * Get all the options of this extension as an array without array keys having the redundant prefix.
 	 *
 	 * @return array
 	 */
@@ -157,7 +157,7 @@ class Settings {
 	}
 
 	/**
-	 * Get an array of all of this extension's raw options (i.e. the ones starting with its prefix).
+	 * Get all the raw options of this extension as an array (i.e. the ones starting with its prefix).
 	 *
 	 * @return array
 	 */
@@ -182,7 +182,7 @@ class Settings {
 	/**
 	 * Given an option key, delete this extension's option value.
 	 *
-	 * This automatically prepends this extension's option prefix so you can just do `$this->delete_option( 'a_setting' )`.
+	 * This automatically prepends the option prefix of this extension, so you can do `$this->delete_option( 'a_setting' )`.
 	 *
 	 * @param string $key
 	 *
@@ -199,10 +199,12 @@ class Settings {
 	}
 
 	/**
-	 * Adds a new section of fields to Events > Settings > General tab, appearing after the "Map Settings" section
-	 * and before the "Miscellaneous Settings" section.
+	 * Adds a new section of fields to the Tickets > Settings > Attendee Registration tab.
+	 *
+	 * @since 1.0.0
+	 * @since 1.1.1 Adjusted to match the new admin UI.
 	 */
-	public function add_settings() {
+	public function add_settings( $original_fields ) {
 		$ticket_fieldsets = $this->get_ticket_fieldsets();
 
 		$fields = [
@@ -285,16 +287,15 @@ class Settings {
 			'default'         => false,
 		];
 
-		$this->settings_helper->add_fields(
-			$this->prefix_settings_field_keys( $fields ),
-			'attendee-registration',
-			'ticket-attendee-page-id',
-			false
-		);
+		$fields = tribe( 'settings' )->wrap_section_content( 'tec-tickets-default-fieldsets', $fields );
+
+		$original_fields['fields'] += $fields;
+
+		return $original_fields;
 	}
 
 	/**
-	 * Add the options prefix to each of the array keys.
+	 * Add the option prefix to each of the array keys.
 	 *
 	 * @param array $fields
 	 *
@@ -319,9 +320,9 @@ class Settings {
 	 * @return string
 	 */
 	private function get_default_fieldset_intro_text() {
-		$result = '<h3 id="default-ticket-fieldset-settings">' . esc_html_x( 'Default Ticket Fieldsets for Collecting Attendee Registration Information', 'Settings header', 'tec-labs-default-ticket-fieldset' ) . '</h3>';
+		$result = '<h3 id="default-ticket-fieldset-settings" class="tec-settings-form__section-header tec-settings-form__section-header--sub">' . esc_html_x( 'Default Ticket Fieldsets for Collecting Attendee Registration Information', 'Settings header', 'tec-labs-default-ticket-fieldset' ) . '</h3>';
 		$result .= '<div style="margin-left: 20px;">';
-		$result .= '<p>';
+		$result .= '<p class="tooltip description">';
 		$result .= esc_html_x( 'You can set up default fieldsets that will be saved with every newly created RSVP or ticket, for tickets created both on the backend or through the Community Events submission form.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
 		$result .= ' ';
 		$result .= esc_html_x( 'If a fieldset is already being added to a ticket manually, then the defaults will not be applied, unless the override setting is enabled.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
