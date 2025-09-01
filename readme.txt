@@ -2,7 +2,7 @@
 Contributors: theeventscalendar
 Donate link: https://evnt.is/29
 Tags: events, calendar
-Requires at least: 6.3
+Requires at least: 6.6
 Tested up to: 6.8.2
 Requires PHP: 7.4
 Stable tag: 1.2.0
