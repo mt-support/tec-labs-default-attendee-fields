@@ -2,12 +2,12 @@
 /**
  * Settings Object.
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @package Tribe\Extensions\Default_Attendee_Fields
  * @since   1.0.0
  *
  */
 
-namespace Tribe\Extensions\Default_Ticket_Fieldset;
+namespace Tribe\Extensions\Default_Attendee_Fields;
 
 use Tribe__Settings_Manager;
 
@@ -281,8 +281,8 @@ class Settings {
 
 		$fields['override_fieldset'] = [
 			'type'            => 'checkbox_bool',
-			'label'           => esc_html_x( 'Override fieldsets', 'Setting label', 'tec-labs-default-attendee-fields' ),
-			'tooltip'         => esc_html_x( 'Enable if you want to force the selected fieldsets on ticket creation.', 'Setting description', 'tec-labs-default-attendee-fields' ),
+			'label'           => esc_html_x( 'Override attendee fields', 'Setting label', 'tec-labs-default-attendee-fields' ),
+			'tooltip'         => esc_html_x( 'Enable if you want to force the selected attendee fields on ticket creation.', 'Setting description', 'tec-labs-default-attendee-fields' ),
 			'validation_type' => 'boolean',
 			'default'         => false,
 		];

@@ -2,19 +2,19 @@
 /**
  * Plugin Class.
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @package Tribe\Extensions\Default_Attendee_Fields
  * @since   1.0.0
  *
  */
 
-namespace Tribe\Extensions\Default_Ticket_Fieldset;
+namespace Tribe\Extensions\Default_Attendee_Fields;
 
 use TEC\Common\Contracts\Service_Provider;
 
 /**
  * Class Plugin
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @package Tribe\Extensions\Default_Attendee_Fields
  * @since   1.0.0
  *
  */
@@ -44,7 +44,7 @@ class Plugin extends Service_Provider {
 	 *
 	 * @var string
 	 */
-	const FILE = TRIBE_EXTENSION_DEFAULT_TICKET_FIELDSET_FILE;
+	const FILE = TRIBE_EXTENSION_DEFAULT_ATTENDEE_FIELDS_FILE;
 
 	/**
 	 * @since 1.0.0
@@ -89,8 +89,8 @@ class Plugin extends Service_Provider {
 
 		// Register this provider as the main one and use a bunch of aliases.
 		$this->container->singleton( static::class, $this );
-		$this->container->singleton( 'extension.default_ticket_fieldset', $this );
-		$this->container->singleton( 'extension.default_ticket_fieldset.plugin', $this );
+		$this->container->singleton( 'extension.default_attendee_fields', $this );
+		$this->container->singleton( 'extension.default_attendee_fields.plugin', $this );
 		$this->container->register( PUE::class );
 
 		if ( ! $this->check_plugin_dependencies() ) {
@@ -136,7 +136,7 @@ class Plugin extends Service_Provider {
 		$plugin_register->register_plugin();
 
 		$this->container->singleton( Plugin_Register::class, $plugin_register );
-		$this->container->singleton( 'extension.default_ticket_fieldset', $plugin_register );
+		$this->container->singleton( 'extension.default_attendee_fields', $plugin_register );
 	}
 
 	/**
@@ -144,7 +144,7 @@ class Plugin extends Service_Provider {
 	 *
 	 * Settings_Helper will append a trailing underscore before each option.
 	 *
-	 * @see \Tribe\Extensions\Default_Ticket_Fieldset\Settings::set_options_prefix()
+	 * @see \Tribe\Extensions\Default_Attendee_Fields\Settings::set_options_prefix()
 	 * @return string
 	 *
 	 */

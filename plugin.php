@@ -29,14 +29,14 @@
  *
  * @var string Base file that loaded the plugin.
  */
-define( 'TRIBE_EXTENSION_DEFAULT_TICKET_FIELDSET_FILE', __FILE__ );
+define( 'TRIBE_EXTENSION_DEFAULT_ATTENDEE_FIELDS_FILE', __FILE__ );
 
 /**
  * Register and load the service provider for loading the extension.
  *
  * @since 1.0.0
  */
-function tribe_extension_default_ticket_fieldset() {
+function tribe_extension_default_attendee_fields() {
 	// When we don't have autoloader from common we bail.
 	if ( ! class_exists( 'Tribe__Autoloader' ) ) {
 		return;
@@ -44,13 +44,13 @@ function tribe_extension_default_ticket_fieldset() {
 
 	// Register the namespace so we can the plugin on the service provider registration.
 	Tribe__Autoloader::instance()->register_prefix(
-		'\\Tribe\\Extensions\\Default_Ticket_Fieldset\\',
+		'\\Tribe\\Extensions\\Default_Attendee_Fields\\',
 		__DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Tec',
 		'default-attendee-fields'
 	);
 
 	// Deactivates the plugin in case of the main class didn't autoload.
-	if ( ! class_exists( '\Tribe\Extensions\Default_Ticket_Fieldset\Plugin' ) ) {
+	if ( ! class_exists( '\Tribe\Extensions\Default_Attendee_Fields\Plugin' ) ) {
 		tribe_transient_notice(
 			'default-attendee-fields',
 			'<p>' . esc_html__( 'Couldn\'t properly load "Event Tickets Extension: Default Attendee Fields" the extension was deactivated.', 'tec-labs-default-attendee-fields' ) . '</p>',
@@ -67,8 +67,8 @@ function tribe_extension_default_ticket_fieldset() {
 		return;
 	}
 
-	tribe_register_provider( '\Tribe\Extensions\Default_Ticket_Fieldset\Plugin' );
+	tribe_register_provider( '\Tribe\Extensions\Default_Attendee_Fields\Plugin' );
 }
 
 // Loads after common is already properly loaded.
-add_action( 'tribe_common_loaded', 'tribe_extension_default_ticket_fieldset' );
+add_action( 'tribe_common_loaded', 'tribe_extension_default_attendee_fields' );
