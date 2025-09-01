@@ -210,7 +210,7 @@ class Settings {
 		$fields = [
 			'default-fieldset-heading' => [
 				'type' => 'html',
-				'html' => $this->get_default_fieldset_intro_text(),
+				'html' => $this->get_fieldset_intro_text(),
 			],
 			'rsvp_default_fieldset'    => [
 				'type'            => 'dropdown',
@@ -315,14 +315,16 @@ class Settings {
 	}
 
 	/**
-	 * Here is an example of getting some HTML for the Settings Header.
+	 * The settings section header and intro text.
+	 *
+	 * @since 1.0.0
+	 * @since 1.1.1 Adjusted to be inline with the new admin UI.
 	 *
 	 * @return string
 	 */
-	private function get_default_fieldset_intro_text() {
+	private function get_fieldset_intro_text() {
 		$result = '<h3 id="default-ticket-fieldset-settings" class="tec-settings-form__section-header tec-settings-form__section-header--sub">' . esc_html_x( 'Default Ticket Fieldsets for Collecting Attendee Registration Information', 'Settings header', 'tec-labs-default-ticket-fieldset' ) . '</h3>';
-		$result .= '<div style="margin-left: 20px;">';
-		$result .= '<p class="tooltip description">';
+		$result .= '<p class="tec-settings-form__description-text">';
 		$result .= esc_html_x( 'You can set up default fieldsets that will be saved with every newly created RSVP or ticket, for tickets created both on the backend or through the Community Events submission form.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
 		$result .= ' ';
 		$result .= esc_html_x( 'If a fieldset is already being added to a ticket manually, then the defaults will not be applied, unless the override setting is enabled.', 'Setting section description', 'tec-labs-default-ticket-fieldset' );
@@ -340,7 +342,6 @@ class Settings {
 			'</a>'
 		);
 		$result .= '</p>';
-		$result .= '</div>';
 
 		return $result;
 	}
