@@ -139,7 +139,7 @@ class Plugin extends Service_Provider {
 	}
 
 	/**
-	 * Get this plugin's options prefix.
+	 * Get this plugin's option prefix.
 	 *
 	 * Settings_Helper will append a trailing underscore before each option.
 	 *
@@ -199,7 +199,6 @@ class Plugin extends Service_Provider {
 	 * @param array                         $data    The ticket data sent.
 	 */
 	function apply_default_fieldset( $post_id, $ticket, $data ) {
-
 		// Run only when the ticket is getting created. Not on update.
 		if ( ! empty( $data['ticket_id'] ) ) {
 			return;
@@ -237,7 +236,6 @@ class Plugin extends Service_Provider {
 
 		if (
 			empty( $default_form_post_id )
-			|| ! isset ( $default_form_post_id )
 			|| 0 == $default_form_post_id
 		) {
 			return;
@@ -251,7 +249,6 @@ class Plugin extends Service_Provider {
 			update_post_meta( $ticket->ID, '_tribe_tickets_meta', $fieldset );
 			update_post_meta( $ticket->ID, '_tribe_tickets_meta_enabled', 'yes' );
 		}
-
 	}
 
 	/**
