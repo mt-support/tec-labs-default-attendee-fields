@@ -1,4 +1,4 @@
-=== Event Tickets Extension: Default Ticket Fieldset ===
+=== Event Tickets Extension: Default Attendee Fields ===
 Contributors: theeventscalendar
 Donate link: https://evnt.is/29
 Tags: events, calendar
@@ -45,7 +45,7 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 * Feature - Add support for Tickets Commerce tickets.
 * Fix - Ensure the Settings link is added to the plugin actions the correct way and points to the right page.
-* Fix - Correct the URL pointing to the Ticket Fieldsets admin page.
+* Fix - Correct the URL pointing to the Attendee Fields admin page.
 * Tweak - Make sure the settings show up under Tickets → Settings → Attendee Registration.
 
 = [1.0.1] 2023-06-24 =

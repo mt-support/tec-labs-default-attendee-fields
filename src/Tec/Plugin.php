@@ -35,7 +35,7 @@ class Plugin extends Service_Provider {
 	 *
 	 * @var string
 	 */
-	const SLUG = 'default-ticket-fieldset';
+	const SLUG = 'default-attendee-fields';
 
 	/**
 	 * Stores the base slug for the extension.
@@ -149,7 +149,7 @@ class Plugin extends Service_Provider {
 	 *
 	 */
 	private function get_options_prefix() {
-		return (string) str_replace( '-', '_', 'tec-labs-default-ticket-fieldset' );
+		return (string) str_replace( '-', '_', 'tec-labs-default-attendee-fields' );
 	}
 
 	/**
@@ -351,8 +351,8 @@ class Plugin extends Service_Provider {
 				       'tab'  => 'attendee-registration'
 			       ),
 			       admin_url('admin.php')
-		       ) . '#default-ticket-fieldset-settings';
-		$settings_link = '<a href="' . $url . '">' . __( 'Settings', 'tec-labs-default-ticket-fieldset' ) . '</a>';
+		       ) . '#default-attendee-fields-settings';
+		$settings_link = '<a href="' . $url . '">' . __( 'Settings', 'tec-labs-default-attendee-fields' ) . '</a>';
 		array_push( $links, $settings_link );
 
 		return $links;
