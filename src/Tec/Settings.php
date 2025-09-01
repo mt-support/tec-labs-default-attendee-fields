@@ -287,6 +287,14 @@ class Settings {
 			'default'         => false,
 		];
 
+		$fields['remove_settings_on_delete'] = [
+			'type'            => 'checkbox_bool',
+			'label'           => esc_html_x( 'Remove the extension settings on deletion', 'Setting label', 'tec-labs-default-attendee-fields' ),
+			'tooltip'         => esc_html_x( 'Enable if you want to remove the extension settings when the plugin is deleted.', 'Setting description', 'tec-labs-default-attendee-fields' ),
+			'validation_type' => 'boolean',
+			'default'         => false,
+		];
+
 		$fields = $this->prefix_settings_field_keys( $fields );
 		$fields = tribe( 'settings' )->wrap_section_content( 'tec-tickets-default-fieldsets', $fields );
 
