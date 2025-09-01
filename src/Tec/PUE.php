@@ -4,10 +4,10 @@
  *
  * @since 1.0.0
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset;
+ * @package Tribe\Extensions\Default_Attendee_Fields;
  */
 
-namespace Tribe\Extensions\Default_Ticket_Fieldset;
+namespace Tribe\Extensions\Default_Attendee_Fields;
 
 use TEC\Common\Contracts\Service_Provider;
 use Tribe__PUE__Checker;
@@ -17,7 +17,7 @@ use Tribe__PUE__Checker;
  *
  * @since 1.0.0
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset;
+ * @package Tribe\Extensions\Default_Attendee_Fields;
  */
 class PUE extends Service_Provider {
 
@@ -28,7 +28,7 @@ class PUE extends Service_Provider {
 	 *
 	 * @var string
 	 */
-	private static $pue_slug = 'extension-default-ticket-fieldset';
+	private static $pue_slug = 'extension-default-attendee-fields';
 
 	/**
 	 * Whether to load PUE or not.
@@ -64,7 +64,7 @@ class PUE extends Service_Provider {
 	 */
 	public function register() {
 		$this->container->singleton( static::class, $this );
-		$this->container->singleton( 'extension.default_ticket_fieldset.pue', $this );
+		$this->container->singleton( 'extension.default_attendee_fields.pue', $this );
 
 		// Bail to avoid notice.
 		if ( ! static:: $is_active ) {

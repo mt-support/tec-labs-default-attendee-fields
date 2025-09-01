@@ -4,10 +4,10 @@
  *
  * @since 1.0.0
  *
- * @package Tribe\Extensions\Default_Ticket_Fieldset
+ * @package Tribe\Extensions\Default_Attendee_Fields
  */
 
-namespace Tribe\Extensions\Default_Ticket_Fieldset;
+namespace Tribe\Extensions\Default_Attendee_Fields;
 
 use Tribe__Main;
 
@@ -133,7 +133,7 @@ class Settings_Helper {
 				$misc_heading = [
 					'tribeMiscSettings' => [
 						'type' => 'html',
-						'html' => '<h3>' . esc_html__( 'Miscellaneous Settings', 'tec-labs-default-ticket-fieldset' ) . '</h3>',
+						'html' => '<h3>' . esc_html__( 'Miscellaneous Settings', 'tec-labs-default-attendee-fields' ) . '</h3>',
 					],
 				];
 				$fields       = Tribe__Main::array_insert_before_key( 'tribe-form-content-end', $fields, $misc_heading );

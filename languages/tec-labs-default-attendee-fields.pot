@@ -1,0 +1,125 @@
+# Copyright (C) 2025 The Events Calendar
+# This file is distributed under the GPL version 3 or any later version.
+msgid ""
+msgstr ""
+"Project-Id-Version: Event Tickets Extension: Default Attendee Fields 1.2.0\n"
+"Report-Msgid-Bugs-To: The Events Calendar <https://support.theeventscalendar.com/>\n"
+"Language-Team: The Events Calendar <support@theeventscalendar.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-09-01T13:08:08+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: tec-labs-default-attendee-fields\n"
+
+#. Plugin Name of the plugin
+#: plugin.php
+msgid "Event Tickets Extension: Default Attendee Fields"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: plugin.php
+msgid "https://theeventscalendar.com/extensions/default-attendee-fields/"
+msgstr ""
+
+#. Description of the plugin
+#: plugin.php
+msgid "Select a fieldset that will be added to all RSVPs and tickets when they are created. You can find the settings under Tickets > Settings > Attendee Registration tab > Default Attendee Fields section."
+msgstr ""
+
+#. Author of the plugin
+#: plugin.php
+msgid "The Events Calendar"
+msgstr ""
+
+#. Author URI of the plugin
+#: plugin.php
+msgid "https://evnt.is/1971"
+msgstr ""
+
+#: plugin.php:56
+msgid "Couldn't properly load \"Event Tickets Extension: Default Attendee Fields\" the extension was deactivated."
+msgstr ""
+
+#: src/Tec/Plugin.php:355
+msgid "Settings"
+msgstr ""
+
+#: src/Tec/Settings.php:217
+msgctxt "Setting label"
+msgid "RSVP"
+msgstr ""
+
+#: src/Tec/Settings.php:218
+msgctxt "Setting description"
+msgid "The Attendee Fields to be added when an RSVP is created."
+msgstr ""
+
+#: src/Tec/Settings.php:230
+msgctxt "Setting label"
+msgid "Tickets Commerce ticket"
+msgstr ""
+
+#. Translators: %s Name of the eCommerce platform.
+#: src/Tec/Settings.php:233
+#: src/Tec/Settings.php:251
+#: src/Tec/Settings.php:269
+msgctxt "Setting description"
+msgid "The Attendee Fields to be added when a ticket with %s is created."
+msgstr ""
+
+#: src/Tec/Settings.php:248
+msgctxt "Setting label"
+msgid "WooCommerce ticket"
+msgstr ""
+
+#: src/Tec/Settings.php:266
+msgctxt "Setting label"
+msgid "EDD ticket"
+msgstr ""
+
+#: src/Tec/Settings.php:284
+msgctxt "Setting label"
+msgid "Override attendee fields"
+msgstr ""
+
+#: src/Tec/Settings.php:285
+msgctxt "Setting description"
+msgid "Enable if you want to force the selected attendee fields on ticket creation."
+msgstr ""
+
+#: src/Tec/Settings.php:327
+msgctxt "Settings header"
+msgid "Default Attendee Fields for Collecting Attendee Registration Information"
+msgstr ""
+
+#: src/Tec/Settings.php:329
+msgctxt "Setting section description"
+msgid "You can set up default fieldsets that will be saved with every newly created RSVP or ticket, for tickets created both on the backend or through the Community Events submission form."
+msgstr ""
+
+#: src/Tec/Settings.php:331
+msgctxt "Setting section description"
+msgid "If a fieldset is already being added to a ticket manually, then the defaults will not be applied, unless the override setting is enabled."
+msgstr ""
+
+#: src/Tec/Settings.php:333
+msgctxt "Setting section description"
+msgid "Individual Attendee Collection fields are added based on the setting above."
+msgstr ""
+
+#. Translators: %1$s opening <a> tag with URL, %2$s closing </a> tag
+#: src/Tec/Settings.php:337
+msgctxt "Setting section description"
+msgid "You can create attendee fields for attendee information collection %1$shere%2$s."
+msgstr ""
+
+#: src/Tec/Settings.php:362
+msgctxt "Default option"
+msgid "No default fieldset"
+msgstr ""
+
+#: src/Tec/Settings_Helper.php:136
+msgid "Miscellaneous Settings"
+msgstr ""
