@@ -70,5 +70,5 @@ function tribe_extension_default_attendee_fields() {
 	tribe_register_provider( '\Tribe\Extensions\Default_Attendee_Fields\Plugin' );
 }
 
-// Loads after common is already properly loaded.
-add_action( 'tribe_common_loaded', 'tribe_extension_default_attendee_fields' );
+// Loads after Event Ticket Plus is already properly loaded.
+add_action( 'tec_tickets_plus_fully_loaded', 'tribe_extension_default_attendee_fields' );
