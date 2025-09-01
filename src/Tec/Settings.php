@@ -202,7 +202,7 @@ class Settings {
 	 * Adds a new section of fields to the Tickets > Settings > Attendee Registration tab.
 	 *
 	 * @since 1.0.0
-	 * @since 1.1.1 Adjusted to match the new admin UI.
+	 * @since 1.2.0 Adjusted to match the new admin UI.
 	 */
 	public function add_settings( $original_fields ) {
 		$ticket_fieldsets = $this->get_ticket_fieldsets();
@@ -319,7 +319,7 @@ class Settings {
 	 * The settings section header and intro text.
 	 *
 	 * @since 1.0.0
-	 * @since 1.1.1 Adjusted to be inline with the new admin UI.
+	 * @since 1.2.0 Adjusted to be inline with the new admin UI.
 	 *
 	 * @return string
 	 */

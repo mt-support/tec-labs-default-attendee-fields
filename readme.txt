@@ -5,7 +5,7 @@ Tags: events, calendar
 Requires at least: 6.3
 Tested up to: 6.8.2
 Requires PHP: 7.4
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 License: GPL version 3 or any later version
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -36,9 +36,10 @@ We're always interested in your feedback and our [Help Desk](https://support.the
 
 == Changelog ==
 
-= [1.1.1] 2025-09-01 =
+= [1.2.0] 2025-09-01 =
 
-* Tweak - Adjusted the settings to match the new settings UI.
+* Feature - Add support for the block editor.
+* Tweak - Adjust the settings to match the new settings UI.
 
 = [1.1.0] 2024-09-24 =
 

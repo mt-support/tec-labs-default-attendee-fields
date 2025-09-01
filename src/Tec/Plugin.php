@@ -26,7 +26,7 @@ class Plugin extends Service_Provider {
 	 *
 	 * @var string
 	 */
-	const VERSION = '1.1.1';
+	const VERSION = '1.2.0';
 
 	/**
 	 * Stores the base slug for the plugin.
@@ -105,6 +105,7 @@ class Plugin extends Service_Provider {
 
 		add_filter( 'plugin_action_links_' . $this->plugin_dir . 'plugin.php', [ $this, 'plugin_settings_link' ], 10, 4 );
 		add_action( 'tribe_tickets_ticket_add', [ $this, 'apply_default_fieldset' ], 10, 3 );
+		add_action( 'rest_insert_tribe_rsvp_tickets', [ $this, 'apply_default_fieldset_block_editor' ], 10, 3 );
 
 		// End binds.
 
@@ -191,6 +192,8 @@ class Plugin extends Service_Provider {
 
 	/**
 	 * Apply a fieldset to a newly created RSVP or ticket.
+	 *  Runs directly when Classic editor is used.
+	 *  Called from `apply_default_fieldset_block_editor` when Block editor is used.
 	 *
 	 * @since 1.0.0
 	 *
@@ -199,39 +202,49 @@ class Plugin extends Service_Provider {
 	 * @param array                         $data    The ticket data sent.
 	 */
 	function apply_default_fieldset( $post_id, $ticket, $data ) {
-		// Run only when the ticket is getting created. Not on update.
+		// Bail if it's an update (there is a ticket_id).
+		// When creating a new RSVP/ticket, the ticket_id is empty.
 		if ( ! empty( $data['ticket_id'] ) ) {
 			return;
 		}
 
 		$options = $this->get_all_options();
 
-		// If override is not checked and there is a fieldset, then don't override.
+		// If override is not checked and the RSVP / ticket already has a fieldset, then don't override.
 		if (
 			! $options['override_fieldset']
-			&& count( $data['tribe-tickets-input'] ) > 1
+			&& $this->has_fieldset( $data )
 		) {
 			return;
 		}
 
-		switch ( $data['ticket_provider'] ) {
-			case 'Tribe__Tickets__RSVP':
+		// $ticket->provider_class should be set ...
+		if ( isset( $ticket->provider_class ) ) {
+			$ticket_type = $this->get_ticket_type( $ticket->provider_class );
+			// ... except for Block Editor RSVP
+		} elseif ( isset( $data['ticket_provider'] ) ) {
+			$ticket_type = $this->get_ticket_type( $data['ticket_provider'] );
+		} else {
+			return;
+		}
+
+		// Checking for the ticket provider and fetching the related fieldset ID.
+		switch ( $ticket_type ) {
+			case "rsvp":
 				$default_form_post_id = $options['rsvp_default_fieldset'];
 				break;
-			/**
-			 * @since 1.1.0
-			 */
-			case 'TEC\Tickets\Commerce\Module':
-				$default_form_post_id = $options['tickets_commerce_default_fieldset'];
-				break;
-			case 'Tribe__Tickets_Plus__Commerce__WooCommerce__Main':
+			case "wooticket":
 				$default_form_post_id = $options['wooticket_default_fieldset'];
 				break;
-			case 'Tribe__Tickets_Plus__Commerce__EDD__Main':
+			case "eddticket":
 				$default_form_post_id = $options['eddticket_default_fieldset'];
 				break;
+			case "tcticket":
+				$default_form_post_id = $options['tickets_commerce_default_fieldset'];
+				break;
 			default:
-				return;
+				$default_form_post_id = 0;
+				break;
 		}
 
 		if (
@@ -241,13 +254,86 @@ class Plugin extends Service_Provider {
 			return;
 		}
 
-		// Get postmeta `_tribe_tickets_meta_template` from `$default_form_post_id`.
+		// Get the fieldset value.
+		// Get the post meta `_tribe_tickets_meta_template` from `$default_form_post_id`.
 		$fieldset = get_post_meta( $default_form_post_id, '_tribe_tickets_meta_template', true );
 
-		// Update postmeta for the RSVP / Ticket.
+		$ticket_id = $ticket->ID ?? $post_id;
+
+		// Update post meta for the RSVP / Ticket.
 		if ( ! empty( $fieldset ) ) {
-			update_post_meta( $ticket->ID, '_tribe_tickets_meta', $fieldset );
-			update_post_meta( $ticket->ID, '_tribe_tickets_meta_enabled', 'yes' );
+			update_post_meta( $ticket_id, '_tribe_tickets_meta', $fieldset );
+			update_post_meta( $ticket_id, '_tribe_tickets_meta_enabled', 'yes' );
+		}
+	}
+
+	/**
+	 * Check if an RSVP / ticket already has a fieldset.
+	 *
+	 * @param array $data The ticket data.
+	 *
+	 * @return bool
+	 *
+	 * @since 1.2.0
+	 */
+	public function has_fieldset( $data ) {
+		return
+			// The array item exists
+			isset( $data['tribe-tickets-input'] )
+			// It is an array
+			&& is_array( $data['tribe-tickets-input'] )
+			// The array has more than one element
+			&& count( $data['tribe-tickets-input'] ) > 1;
+	}
+
+	/**
+	 * Gather the data when an RSVP is created in the block editor.
+	 * Then call `apply_default_fieldset` to create the fieldset.
+	 *
+	 * Note: Woo, EDD and Tickets Commerce tickets are handled differently when created in the block editor.
+	 * The `apply_default_fieldset` takes care of those by default.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param object $post    The inserted or updated post object.
+	 * @param object $request Request object.
+	 * @param bool   $create  True when creating a post, false when updating.
+	 *
+	 * @return bool|void      False when updating.
+	 */
+	public function apply_default_fieldset_block_editor( $post, $request, $create ) {
+		// Bail when updating the RSVP.
+		if ( ! $create ) {
+			return;
+		}
+
+		$data['ticket_provider']     = 'Tribe__Tickets__RSVP';
+
+		// Hand over to `apply_default_fieldset`
+		$this->apply_default_fieldset( $post->ID, $request, $data );
+	}
+
+	/**
+	 * Get the ticket type.
+	 * The Classic Editor and the Block Editor handle this slightly differently.
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param string|null $ticket_provider  The Service Provider Class.
+	 *
+	 * @return false|string
+	 */
+	public function get_ticket_type( string $ticket_provider = null ) {
+		if ( $ticket_provider == 'Tribe__Tickets__RSVP' ) {
+			return "rsvp";
+		} elseif ( $ticket_provider == 'Tribe__Tickets_Plus__Commerce__WooCommerce__Main' ) {
+			return "wooticket";
+		} elseif ( $ticket_provider == 'Tribe__Tickets_Plus__Commerce__EDD__Main' ) {
+			return "eddticket";
+		} elseif ( $ticket_provider == 'TEC\Tickets\Commerce\Module' ) {
+			return "tcticket";
+		} else {
+			return false;
 		}
 	}
 
