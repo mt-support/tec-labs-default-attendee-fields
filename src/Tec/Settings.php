@@ -287,6 +287,7 @@ class Settings {
 			'default'         => false,
 		];
 
+		$fields = $this->prefix_settings_field_keys( $fields );
 		$fields = tribe( 'settings' )->wrap_section_content( 'tec-tickets-default-fieldsets', $fields );
 
 		$original_fields['fields'] += $fields;
